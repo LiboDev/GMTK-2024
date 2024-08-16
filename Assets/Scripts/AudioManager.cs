@@ -28,8 +28,8 @@ public class AudioManager : MonoBehaviour
         musicVolume = PlayerPrefs.GetFloat("MusicVolume", 1);
 
         //setting volume when new scene loaded
-        SFXVolume(sfxVolume);
-        MusicVolume(musicVolume);
+        SetSFXVolume(sfxVolume);
+        SetMusicVolume(musicVolume);
 
         //set value on sliders
         sfxSlider.value = sfxVolume;
@@ -37,7 +37,7 @@ public class AudioManager : MonoBehaviour
     }
 
     //set audio mixer volume
-    public void SFXVolume(float volume)
+    public void SetSFXVolume(float volume)
     {
         if (volume <= Mathf.Pow(10, -80))
         {
@@ -52,7 +52,7 @@ public class AudioManager : MonoBehaviour
         Debug.Log(volume);
     }
 
-    public void MusicVolume(float volume)
+    public void SetMusicVolume(float volume)
     {
         if (volume <= Mathf.Pow(10, -80))
         {
