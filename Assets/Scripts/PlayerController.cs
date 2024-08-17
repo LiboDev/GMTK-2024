@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     private GameObject body;
 
     //Variables related to the body stretching
+    private bool canStretch = true;
     private bool stretching = false;
     private bool stretched = false;
     private string xStretchDir = "none";
@@ -365,12 +366,13 @@ public class PlayerController : MonoBehaviour
                 yStretchDir = "none";
                 stretched = false;
                 bodyReturning = false;
+                canStretch = true;
                 initialPosition = headTransform.localPosition;
                 body.transform.localPosition = initialPosition;
                 body.transform.localScale = Vector2.one;
             }
         }
-        else if ((Mathf.Abs(body.transform.localScale.x) + Mathf.Abs(body.transform.localScale.y)) < playerSize)
+        else if (canStretch)
         {
             Vector3 changeFromStartingPos = headTransform.localPosition - initialPosition - new Vector3(0.5f, 0.5f, 0);
             if (bodyXFlipped && bodyYFlipped)
@@ -399,7 +401,7 @@ public class PlayerController : MonoBehaviour
             body.transform.position += initialPosition;
         }
 
-        if (!stretched && (Mathf.Abs(body.transform.localScale.x) + Mathf.Abs(body.transform.localScale.y)) < playerSize)
+        if (!stretched && canStretch)
         {
             switch (xStretchDir)
             {
@@ -423,9 +425,71 @@ public class PlayerController : MonoBehaviour
 
             headRigidbody2D.velocity *= speed;
         }
+        else if (!stretched)
+        {
+            Vector2 headTarget = new Vector2(1, 1);
+
+            if (bodyXFlipped)
+            {
+                headTarget = new Vector2(body.transform.localPosition.x + (body.transform.localScale.x / 2) - 0.5f, headTarget.y);
+            }
+            else
+            {
+                headTarget = new Vector2(body.transform.localPosition.x + (body.transform.localScale.x / 2) + 0.5f, headTarget.y);
+            }
+
+            if (bodyYFlipped)
+            {
+                headTarget = new Vector2(headTarget.x, body.transform.localPosition.y + (body.transform.localScale.y / 2) - 0.5f);
+            }
+            else
+            {
+                headTarget = new Vector2(headTarget.x, body.transform.localPosition.y + (body.transform.localScale.y / 2) + 0.5f);
+            }
+
+            print("Target Pos: " + headTarget + "\nReal Pos: " + headTransform.localPosition);
+
+            if (bodyXFlipped && bodyYFlipped)
+            {
+                if (headTransform.localPosition.x >= headTarget.x && headTransform.localPosition.y >= headTarget.y)
+                {
+                    headRigidbody2D.velocity = Vector2.zero;
+                    headTransform.localPosition = headTarget;
+                }
+            }
+            else if (bodyXFlipped)
+            {
+                if (headTransform.localPosition.x >= headTarget.x && headTransform.localPosition.y <= headTarget.y)
+                {
+                    headRigidbody2D.velocity = Vector2.zero;
+                    headTransform.localPosition = headTarget;
+                }
+            }
+            else if (bodyYFlipped)
+            {
+                if (headTransform.localPosition.x <= headTarget.x && headTransform.localPosition.y >= headTarget.y)
+                {
+                    headRigidbody2D.velocity = Vector2.zero;
+                    headTransform.localPosition = headTarget;
+                }
+            }
+            else
+            {
+                if (headTransform.localPosition.x <= headTarget.x && headTransform.localPosition.y <= headTarget.y)
+                {
+                    headRigidbody2D.velocity = Vector2.zero;
+                    headTransform.localPosition = headTarget;
+                }
+            }
+        }
         else
         {
             headRigidbody2D.velocity = Vector2.zero;
+        }
+
+        if ((Mathf.Abs(body.transform.localScale.x) + Mathf.Abs(body.transform.localScale.y)) >= playerSize)
+        {
+            canStretch = false;
         }
     }
 
