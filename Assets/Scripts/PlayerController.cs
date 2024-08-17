@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private bool bodyYFlipped = false;
 
     //stats
-    [SerializeField] private int playerSize = 10;
+    [SerializeField] private int playerSize = 25;
     private float bulletInterval = 1.5f;
 
     //Prefabs
@@ -90,9 +90,7 @@ public class PlayerController : MonoBehaviour
 
         if (stretching || stretched)
         {
-            print("Prechange color: " + bodySpriteRenderer.color);
             bodySpriteRenderer.color = new Color(bodySpriteRenderer.color.r, bodySpriteRenderer.color.g, bodySpriteRenderer.color.b, 0.75f);
-            print("After change color: " + bodySpriteRenderer.color);
         }
         else
         {
@@ -524,7 +522,7 @@ public class PlayerController : MonoBehaviour
             headRigidbody2D.velocity = Vector2.zero;
         }
 
-        if ((Mathf.Abs(body.transform.localScale.x) + Mathf.Abs(body.transform.localScale.y)) >= playerSize)
+        if ((Mathf.Abs(body.transform.localScale.x) * Mathf.Abs(body.transform.localScale.y)) >= playerSize)
         {
             canStretch = false;
         }
