@@ -152,6 +152,19 @@ public class EnemyController : MonoBehaviour
             size = 0;
             Death();
         }
+        else
+        {
+            for (int i = 0; i < Random.Range(1, damage); i++)
+            {
+                Instantiate(slimeBall, transform.position, Quaternion.identity);
+            }
+
+            if(type != 2)
+            {
+                range = Mathf.Sqrt(size) / 2f;
+                transform.localScale = new Vector3(Mathf.Sqrt(size), Mathf.Sqrt(size), 1);
+            }
+        }
     }
 
     private void Death()
@@ -159,11 +172,6 @@ public class EnemyController : MonoBehaviour
         //SFX
 
         Instantiate(destruction, transform.position, Quaternion.identity);
-
-        for(int i = 0; i < Random.Range(1,size); i++)
-        {
-            Instantiate(slimeBall, transform.position, Quaternion.identity);
-        }
 
         Destroy(gameObject);
     }

@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class PlayerBullet : MonoBehaviour
 {
+    [SerializeField] private GameObject destruction;
+
     [SerializeField] float bulletSpeed = 20;
     private Vector2 movementDirection;
+
+    [SerializeField] private int damage = 1;
 
     Rigidbody2D bulletRigidbody;
 
@@ -30,12 +34,23 @@ public class PlayerBullet : MonoBehaviour
         }
     }
 
+    public void SetDamage(int damage)
+    {
+        this.damage = damage;
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Enemy")
         {
-            
+            other.gameObject.transform.GetComponent<EnemyController>().Damage(damage);
+            Death();
         }
-        //Destroy(gameObject);
+    }
+
+    private void Death()
+    {
+        Instantiate(destruction, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

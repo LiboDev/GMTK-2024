@@ -44,15 +44,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Effects
-    uniqueID: 4260202447
-    locked: 0
-  - name: Entities
-    uniqueID: 21926163
+  - name: Background
+    uniqueID: 1750633547
     locked: 0
   - name: Environment
     uniqueID: 218864011
     locked: 0
-  - name: Background
-    uniqueID: 1750633547
+  - name: Entities
+    uniqueID: 21926163
+    locked: 0
+  - name: Effects
+    uniqueID: 4260202447
     locked: 0

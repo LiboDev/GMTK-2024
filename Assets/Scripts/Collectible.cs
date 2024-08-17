@@ -12,7 +12,9 @@ public class Collectible : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        rb.velocity = new Vector2(Random.Range(-3, 3), Random.Range(-3, 3));
+        Vector2 vel = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
+        vel.Normalize();
+        rb.velocity = vel * Random.Range(1f,3f);
     }
 
     void OnTriggerEnter2D(Collider2D other)

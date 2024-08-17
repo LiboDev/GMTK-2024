@@ -39,13 +39,20 @@ public class PlayerController : MonoBehaviour
 
     //stats
     [SerializeField] private int playerSize = 25;
-    private float bulletInterval = 1.5f;
+    [SerializeField] private float bulletInterval = 1.5f;
+    [SerializeField] private float range = 10f;
+    [SerializeField] private int bulletDamage = 1;
+    //
+    private bool canShoot = true;
+    [SerializeField] private int bulletsPerSecond = 1;
 
     //Prefabs
     [SerializeField] private GameObject bulletPrefab;
 
     //General Camera Variables
     private CinemachineVirtualCamera playerCamera;
+
+
 
 
     // Start is called before the first frame update
@@ -71,22 +78,34 @@ public class PlayerController : MonoBehaviour
 
         PlayerMovement();
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (canShoot)
         {
-            FireUp();
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                FireUp();
+                canShoot = false;
+                Invoke("Reload", 1f / bulletsPerSecond);
+            }
+            else if (Input.GetKey(KeyCode.DownArrow))
+            {
+                FireDown();
+                canShoot = false;
+                Invoke("Reload", 1f / bulletsPerSecond);
+            }
+            else if (Input.GetKey(KeyCode.RightArrow))
+            {
+                FireRight();
+                canShoot = false;
+                Invoke("Reload", 1f / bulletsPerSecond);
+            }
+            else if (Input.GetKey(KeyCode.LeftArrow))
+            {
+                FireLeft();
+                canShoot = false;
+                Invoke("Reload", 1f / bulletsPerSecond);
+            }
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            FireDown();
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            FireRight();
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            FireLeft();
-        }
+
 
         if (stretching || stretched)
         {
@@ -96,6 +115,11 @@ public class PlayerController : MonoBehaviour
         {
             bodySpriteRenderer.color = new Color(bodySpriteRenderer.color.r, bodySpriteRenderer.color.g, bodySpriteRenderer.color.b, 1);
         }
+    }
+
+    private void Reload()
+    {
+        canShoot = true;
     }
 
     private void FireUp()
