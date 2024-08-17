@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0474934fbf85e9b41a8608bd5dc7f2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bodyXFlipped: 0
   bulletPrefab: {fileID: 0}
 --- !u!212 &312584687
 SpriteRenderer:
@@ -806,7 +807,7 @@ GameObject:
   - component: {fileID: 1046506400}
   m_Layer: 0
   m_Name: Virtual Camera
-  m_TagString: Untagged
+  m_TagString: PlayerCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1024,17 +1025,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0474934fbf85e9b41a8608bd5dc7f2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bodyXFlipped: 0
   bulletPrefab: {fileID: 3832082420904362824, guid: e418bf758e9569c45aec47d0b457bfaa, type: 3}
-  yStretchDir: none
-  returnTarget: {x: -1, y: -1}
-  bodyReturning: 0
-  bodyXFlipped: 0
-  bodyYFlipped: 0
-  yStretchDir: none
-  returnTarget: {x: -1, y: -1}
-  bodyReturning: 0
-  bodyXFlipped: 0
-  bodyYFlipped: 0
 --- !u!4 &1708345853
 Transform:
   m_ObjectHideFlags: 0
@@ -1322,11 +1314,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4032610228236708482, guid: 07186cd69c91c614baf10d509cdf7dca, type: 3}
       propertyPath: range
-    - target: {fileID: 5060624566380019449, guid: 07186cd69c91c614baf10d509cdf7dca, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-      value: 1
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4032610228236708482, guid: 07186cd69c91c614baf10d509cdf7dca, type: 3}
       propertyPath: destruction
@@ -1335,6 +1323,10 @@ PrefabInstance:
     - target: {fileID: 5060624566380019449, guid: 07186cd69c91c614baf10d509cdf7dca, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5060624566380019449, guid: 07186cd69c91c614baf10d509cdf7dca, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

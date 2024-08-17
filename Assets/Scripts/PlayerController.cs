@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,11 +36,14 @@ public class PlayerController : MonoBehaviour
     private bool bodyYFlipped = false;
 
     //stats
-    private int size = 10;
+    private int playerSize = 10;
     private float bulletInterval = 1.5f;
 
     //Prefabs
     [SerializeField] private GameObject bulletPrefab;
+
+    //General Camera Variables
+    private CinemachineVirtualCamera playerCamera;
 
 
     // Start is called before the first frame update
@@ -47,6 +51,7 @@ public class PlayerController : MonoBehaviour
     {
         headRigidbody2D = transform.GetChild(0).GetComponent<Rigidbody2D>();
         headTransform = transform.GetChild(0).GetComponent<Transform>();
+        playerCamera = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<CinemachineVirtualCamera>();
         body = transform.GetChild(1).gameObject;
         //Save the head's initial position
         initialPosition = headTransform.localPosition;
@@ -55,6 +60,12 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        playerCamera.m_Lens.OrthographicSize = Mathf.Abs(body.transform.localScale.x) + Mathf.Abs(body.transform.localScale.y);
+        if (playerCamera.m_Lens.OrthographicSize < 10)
+        {
+            playerCamera.m_Lens.OrthographicSize = 10;
+        }
+
         PlayerMovement();
 
         if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -422,11 +433,11 @@ public class PlayerController : MonoBehaviour
     {
         //SFX
 
-        size -= damage;
+        playerSize -= damage;
         
-        if(size <= 0)
+        if(playerSize <= 0)
         {
-            size = 0;
+            playerSize = 0;
 
             Debug.Log("GameOver");
         }
@@ -435,11 +446,11 @@ public class PlayerController : MonoBehaviour
     public void Grow(int num)
     {
         //SFX
-        size += num;
+        playerSize += num;
 
-        if(size >= 100)
+        if(playerSize >= 100)
         {
-            size = 100;
+            playerSize = 100;
         }
 
     }
