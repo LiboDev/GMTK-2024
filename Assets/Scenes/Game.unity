@@ -159,12 +159,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0474934fbf85e9b41a8608bd5dc7f2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xStretchDir: none
-  yStretchDir: none
-  returnTarget: {x: -1, y: -1}
-  bodyReturning: 0
-  bodyXFlipped: 0
-  bodyYFlipped: 0
 --- !u!212 &312584687
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1029,12 +1023,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0474934fbf85e9b41a8608bd5dc7f2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xStretchDir: none
-  yStretchDir: none
-  returnTarget: {x: -1, y: -1}
-  bodyReturning: 0
-  bodyXFlipped: 0
-  bodyYFlipped: 0
 --- !u!4 &1708345853
 Transform:
   m_ObjectHideFlags: 0
