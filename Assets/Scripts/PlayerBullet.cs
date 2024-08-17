@@ -9,6 +9,10 @@ public class PlayerBullet : MonoBehaviour
     [SerializeField] float bulletSpeed = 20;
     private Vector2 movementDirection;
 
+    //How long should the bullet last before despawning? (In seconds)
+    private float despawnTime = 2f;
+    private float despawnTimer = 0f;
+
     [SerializeField] private int damage = 1;
 
     Rigidbody2D bulletRigidbody;
@@ -23,6 +27,13 @@ public class PlayerBullet : MonoBehaviour
     void Update()
     {
         bulletRigidbody.velocity = movementDirection * bulletSpeed;
+
+        despawnTimer += Time.deltaTime;
+
+        if (despawnTimer >= despawnTime)
+        {
+            Death();
+        }
     }
 
     public void Initialize(Vector2 bulletDir)

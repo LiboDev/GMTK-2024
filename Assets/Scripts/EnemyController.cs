@@ -33,8 +33,6 @@ public class EnemyController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-
-        /*player = GameObject.Find("Player/Body").transform;*/
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         playerCollider = GameObject.Find("Player/Body").GetComponent<BoxCollider2D>();
 

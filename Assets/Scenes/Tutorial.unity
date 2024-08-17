@@ -2830,7 +2830,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.5
-  m_Text: Collect slimeballs to increase size
+  m_Text: Collect slimeballs to increase max size
 --- !u!222 &2137260208
 CanvasRenderer:
   m_ObjectHideFlags: 0
