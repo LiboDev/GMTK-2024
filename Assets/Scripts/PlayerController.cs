@@ -25,6 +25,12 @@ public class PlayerController : MonoBehaviour
     public bool bodyXFlipped = false;
     public bool bodyYFlipped = false;
 
+    //stats
+    private int size;
+
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -207,6 +213,18 @@ public class PlayerController : MonoBehaviour
         else
         {
             headRigidbody2D.velocity = Vector2.zero;
+        }
+    }
+
+    public void Damage(int damage)
+    {
+        size -= damage;
+        
+        if(size <= 0)
+        {
+            size = 0;
+
+            Debug.Log("GameOver");
         }
     }
 }
