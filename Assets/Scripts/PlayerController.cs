@@ -304,15 +304,27 @@ public class PlayerController : MonoBehaviour
                 case "right":
                     if (Input.GetKeyUp(KeyCode.D))
                     {
-                        stretching = false;
-                        stretched = true;
+                        if (yStretchDir != "none")
+                        {
+                            xStretchDir = "none";
+                        }
+                        else
+                        {
+                            StopBodyStretching();
+                        }
                     }
                     break;
                 case "left":
                     if (Input.GetKeyUp(KeyCode.A))
                     {
-                        stretching = false;
-                        stretched = true;
+                        if (yStretchDir != "none")
+                        {
+                            xStretchDir = "none";
+                        }
+                        else
+                        {
+                            StopBodyStretching();
+                        }
                     }
                     break;
             }
@@ -321,22 +333,30 @@ public class PlayerController : MonoBehaviour
                 case "up":
                     if (Input.GetKeyUp(KeyCode.W))
                     {
-                        stretching = false;
-                        stretched = true;
+                        if (xStretchDir != "none")
+                        {
+                            yStretchDir = "none";
+                        }
+                        else
+                        {
+                            StopBodyStretching();
+                        }
                     }
                     break;
                 case "down":
                     if (Input.GetKeyUp(KeyCode.S))
                     {
-                        stretching = false;
-                        stretched = true;
+                        if (xStretchDir != "none")
+                        {
+                            yStretchDir = "none";
+                        }
+                        else
+                        {
+                            StopBodyStretching();
+                        }
                     }
                     break;
             }
-
-            bodyReturning = true;
-            bodyReturnStartTime = Time.time;
-            startBodyScale = body.transform.localScale;
         }
 
         if (bodyReturning)
@@ -411,6 +431,9 @@ public class PlayerController : MonoBehaviour
                 case "left":
                     headRigidbody2D.velocity = new Vector2(Mathf.Min(Input.GetAxisRaw("Horizontal"), 0), headRigidbody2D.velocity.y);
                     break;
+                default:
+                    headRigidbody2D.velocity = new Vector2(0, headRigidbody2D.velocity.y);
+                    break;
             }
 
             switch (yStretchDir)
@@ -420,6 +443,9 @@ public class PlayerController : MonoBehaviour
                     break;
                 case "down":
                     headRigidbody2D.velocity = new Vector2(headRigidbody2D.velocity.x, Mathf.Min(Input.GetAxisRaw("Vertical"), 0));
+                    break;
+                default:
+                    headRigidbody2D.velocity = new Vector2(headRigidbody2D.velocity.x, 0);
                     break;
             }
 
@@ -446,8 +472,6 @@ public class PlayerController : MonoBehaviour
             {
                 headTarget = new Vector2(headTarget.x, body.transform.localPosition.y + (body.transform.localScale.y / 2) + 0.5f);
             }
-
-            print("Target Pos: " + headTarget + "\nReal Pos: " + headTransform.localPosition);
 
             if (bodyXFlipped && bodyYFlipped)
             {
@@ -490,6 +514,15 @@ public class PlayerController : MonoBehaviour
         if ((Mathf.Abs(body.transform.localScale.x) + Mathf.Abs(body.transform.localScale.y)) >= playerSize)
         {
             canStretch = false;
+        }
+
+        void StopBodyStretching()
+        {
+            stretching = false;
+            stretched = true;
+            bodyReturning = true;
+            bodyReturnStartTime = Time.time;
+            startBodyScale = body.transform.localScale;
         }
     }
 
