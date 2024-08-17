@@ -18837,7 +18837,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyXFlipped: 0
-  playerSize: 100
+  playerSize: 25
   bulletInterval: 1
   range: 10
   bulletDamage: 1
