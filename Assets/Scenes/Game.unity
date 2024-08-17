@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0474934fbf85e9b41a8608bd5dc7f2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 0}
 --- !u!212 &312584687
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1023,6 +1024,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0474934fbf85e9b41a8608bd5dc7f2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 3832082420904362824, guid: e418bf758e9569c45aec47d0b457bfaa, type: 3}
+  yStretchDir: none
+  returnTarget: {x: -1, y: -1}
+  bodyReturning: 0
+  bodyXFlipped: 0
+  bodyYFlipped: 0
+  yStretchDir: none
+  returnTarget: {x: -1, y: -1}
+  bodyReturning: 0
+  bodyXFlipped: 0
+  bodyYFlipped: 0
 --- !u!4 &1708345853
 Transform:
   m_ObjectHideFlags: 0
@@ -1201,7 +1213,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 0.75, y: 0.75}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -1244,7 +1256,7 @@ BoxCollider2D:
     border: {x: 0.25, y: 0.25, z: 0.25, w: 0.25}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.75, y: 0.75}
-    newSize: {x: 0.75, y: 0.75}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 1
     adaptiveTiling: 0
@@ -1310,6 +1322,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4032610228236708482, guid: 07186cd69c91c614baf10d509cdf7dca, type: 3}
       propertyPath: range
+    - target: {fileID: 5060624566380019449, guid: 07186cd69c91c614baf10d509cdf7dca, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4032610228236708482, guid: 07186cd69c91c614baf10d509cdf7dca, type: 3}
@@ -1319,10 +1335,6 @@ PrefabInstance:
     - target: {fileID: 5060624566380019449, guid: 07186cd69c91c614baf10d509cdf7dca, type: 3}
       propertyPath: m_Name
       value: Enemy
-      objectReference: {fileID: 0}
-    - target: {fileID: 5060624566380019449, guid: 07186cd69c91c614baf10d509cdf7dca, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

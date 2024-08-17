@@ -29,13 +29,17 @@ public class PlayerController : MonoBehaviour
     //Auxillary variables for manipulating the body
     //The head's initial position before a stretch
     private Vector3 initialPosition;
-    private bool bodyXFlipped = false;
+    //If the head is to the right of the initial position, body is flipped
+    [SerializeField] private bool bodyXFlipped = false;
+    //If the head is above the initial position, body is flipped
     private bool bodyYFlipped = false;
 
     //stats
     private int size = 10;
+    private float bulletInterval = 1.5f;
 
-
+    //Prefabs
+    [SerializeField] private GameObject bulletPrefab;
 
 
     // Start is called before the first frame update
@@ -51,6 +55,197 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        PlayerMovement();
+
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            FireUp();
+        }
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            FireDown();
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            FireRight();
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            FireLeft();
+        }
+    }
+
+    private void FireUp()
+    {
+        Vector2 bulletPos = headTransform.position;
+        if ((int)(body.transform.localScale.x / bulletInterval) == 0)
+        {
+            if (bodyYFlipped)
+            {
+                bulletPos = new Vector2(bulletPos.x, headTransform.position.y + 1);
+            }
+            else
+            {
+                bulletPos = new Vector2(bulletPos.x, headTransform.position.y - body.transform.localScale.y);
+            }
+            GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, 1)));
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.up);
+        }
+        else
+        {
+            for (int i = 0; i < Mathf.Abs((int)(body.transform.localScale.x / bulletInterval)); i++)
+            {
+                if (bodyXFlipped)
+                {
+                    bulletPos = new Vector2(headTransform.position.x - (bulletInterval * i), bulletPos.y);
+                }
+                else
+                {
+                    bulletPos = new Vector2(headTransform.position.x + (bulletInterval * i), bulletPos.y);
+                }
+                if (bodyYFlipped)
+                {
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y + 1);
+                }
+                else
+                {
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y - body.transform.localScale.y);
+                }
+                GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, 1)));
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.up);
+            }
+        }
+    }
+
+    private void FireDown()
+    {
+        Vector2 bulletPos = headTransform.position;
+        if ((int)(body.transform.localScale.x / bulletInterval) == 0)
+        {
+            if (bodyYFlipped)
+            {
+                bulletPos = new Vector2(bulletPos.x, headTransform.position.y + body.transform.localScale.y);
+            }
+            else
+            {
+                bulletPos = new Vector2(bulletPos.x, headTransform.position.y - 1);
+            }
+            GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, -1)));
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.down);
+        }
+        else
+        {
+            for (int i = 0; i < Mathf.Abs((int)(body.transform.localScale.x / bulletInterval)); i++)
+            {
+                if (bodyXFlipped)
+                {
+                    bulletPos = new Vector2(headTransform.position.x - (bulletInterval * i), bulletPos.y);
+                }
+                else
+                {
+                    bulletPos = new Vector2(headTransform.position.x + (bulletInterval * i), bulletPos.y);
+                }
+                if (bodyYFlipped)
+                {
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y - body.transform.localScale.y);
+                }
+                else
+                {
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y - 1);
+                }
+                GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, -1)));
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.down);
+            }
+        }
+    }
+
+    private void FireRight()
+    {
+        Vector2 bulletPos = headTransform.position;
+        if ((int)(body.transform.localScale.y / bulletInterval) == 0)
+        {
+            if (bodyXFlipped)
+            {
+                bulletPos = new Vector2(headTransform.position.x + 1, bulletPos.y);
+            }
+            else
+            {
+                bulletPos = new Vector2(headTransform.position.x - body.transform.localScale.x, bulletPos.y);
+            }
+            GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.right));
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.right);
+        }
+        else
+        {
+            for (int i = 0; i < Mathf.Abs((int)(body.transform.localScale.y / bulletInterval)); i++)
+            {
+                if (bodyXFlipped)
+                {
+                    bulletPos = new Vector2(headTransform.position.x + 1, bulletPos.y);
+                }
+                else
+                {
+                    bulletPos = new Vector2(headTransform.position.x - body.transform.localScale.x, bulletPos.y);
+                }
+                if (bodyYFlipped)
+                {
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y - (bulletInterval * i));
+                }
+                else
+                {
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y + (bulletInterval * i));
+                }
+                GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.right));
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.right);
+            }
+        }
+    }
+
+    private void FireLeft()
+    {
+        Vector2 bulletPos = headTransform.position;
+        if ((int)(body.transform.localScale.y / bulletInterval) == 0)
+        {
+            if (bodyXFlipped)
+            {
+                bulletPos = new Vector2(headTransform.position.x - body.transform.localScale.x, bulletPos.y);
+            }
+            else
+            {
+                bulletPos = new Vector2(headTransform.position.x - 1, bulletPos.y);
+            }
+            GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.left));
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.left);
+        }
+        else
+        {
+            for (int i = 0; i < Mathf.Abs((int)(body.transform.localScale.y / bulletInterval)); i++)
+            {
+                if (bodyXFlipped)
+                {
+                    bulletPos = new Vector2(headTransform.position.x - body.transform.localScale.x, bulletPos.y);
+                }
+                else
+                {
+                    bulletPos = new Vector2(headTransform.position.x - 1, bulletPos.y);
+                }
+                if (bodyYFlipped)
+                {
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y - (bulletInterval * i));
+                }
+                else
+                {
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y + (bulletInterval * i));
+                }
+                GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.left));
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.left);
+            }
+        }
+    }
+
+    private void PlayerMovement()
+    {
+        //If the player presses any movement key while not currently stretched, set all the movement stuff in that/those direction(s)
         if (!stretched && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)))
         {
             if (xStretchDir == "none")
