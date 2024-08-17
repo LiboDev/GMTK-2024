@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int type;
     [SerializeField] private GameObject destruction;
     [SerializeField] private GameObject bulletObject;
+    [SerializeField] private GameObject slimeBall;
 
     [SerializeField] private int size = 1;
     [SerializeField] private float speed = 10f;
@@ -36,12 +37,15 @@ public class EnemyController : MonoBehaviour
         }
         else if (type == 1)
         {
+            range = Mathf.Sqrt(size) / 2f;
             StartCoroutine(Slapper());
         }
         else if (type == 2)
         {
             StartCoroutine(Minigun());
         }
+
+        transform.localScale = new Vector3(Mathf.Sqrt(size), Mathf.Sqrt(size), 1);
     }
 
     public void SetSize(int size)
@@ -71,9 +75,15 @@ public class EnemyController : MonoBehaviour
         {
             if (Vector2.Distance(playerPos, transform.position) < range)
             {
-                playerController.Damage(5);
-                //Instantiate(destruction, transform.position, Quaternion.identity);
-                Destroy(this.gameObject);
+                //SFX
+                yield return new WaitForSeconds(1f);
+
+                if(Vector2.Distance(playerPos, transform.position) < range)
+                {
+                    //SFX
+                    playerController.Damage(5);
+                    Death();
+                }
             }
             yield return null;
         }
@@ -87,7 +97,7 @@ public class EnemyController : MonoBehaviour
             {
                 playerController.Damage(1);
                 size++;
-                range = Mathf.Sqrt(size);
+                range = Mathf.Sqrt(size)/2f;
                 transform.localScale = new Vector3(Mathf.Sqrt(size), Mathf.Sqrt(size), 1);
 
                 yield return new WaitForSeconds(1f/bulletsPerSecond);
@@ -129,5 +139,32 @@ public class EnemyController : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
+    }
+
+    public void Damage(int damage)
+    {
+        //SFX
+
+        size -= damage;
+
+        if(size <=0)
+        {
+            size = 0;
+            Death();
+        }
+    }
+
+    private void Death()
+    {
+        //SFX
+
+        Instantiate(destruction, transform.position, Quaternion.identity);
+
+        for(int i = 0; i < Random.Range(1,size); i++)
+        {
+            Instantiate(slimeBall, transform.position, Quaternion.identity);
+        }
+
+        Destroy(gameObject);
     }
 }

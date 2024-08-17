@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class BulletController : MonoBehaviour
 {
+    //scene
+    [SerializeField] private GameObject destruction;
+    private Rigidbody2D rb;
+
+    //tracking
     private int damage;
 
     private Vector2 playerPos;
 
-    private Rigidbody2D rb;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        Invoke("Death", 10f);
+
         rb = GetComponent<Rigidbody2D>();
 
         float angle = Mathf.Atan2(playerPos.y - transform.position.y, playerPos.x - transform.position.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle));
+        transform.rotation = Quaternion.Euler(new Vector3(0, 0, angle + Random.Range(-10f, 10f)));
 
         rb.velocity = transform.right * 10f;
     }
@@ -35,7 +42,13 @@ public class BulletController : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             other.gameObject.transform.parent.GetComponent<PlayerController>().Damage(damage);
-            Destroy(gameObject);
+            Death();
         }
+    }
+
+    private void Death()
+    {
+        Instantiate(destruction, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

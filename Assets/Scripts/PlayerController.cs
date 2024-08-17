@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     public bool bodyYFlipped = false;
 
     //stats
-    private int size;
+    private int size = 10;
 
 
 
@@ -218,6 +218,8 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(int damage)
     {
+        //SFX
+
         size -= damage;
         
         if(size <= 0)
@@ -226,5 +228,17 @@ public class PlayerController : MonoBehaviour
 
             Debug.Log("GameOver");
         }
+    }
+
+    public void Grow(int num)
+    {
+        //SFX
+        size += num;
+
+        if(size >= 100)
+        {
+            size = 100;
+        }
+
     }
 }
