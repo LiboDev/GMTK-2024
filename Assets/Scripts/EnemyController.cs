@@ -4,22 +4,29 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    //prefabs
     [SerializeField] private int type;
     [SerializeField] private GameObject destruction;
     [SerializeField] private GameObject bulletObject;
     [SerializeField] private GameObject slimeBall;
 
+    //stats
     [SerializeField] private int size = 1;
     [SerializeField] private float speed = 10f;
     [SerializeField] private float range = 10f;
     [SerializeField] private float bulletsPerSecond = 1f;
     [SerializeField] private int bulletDamage = 1;
 
+    //scene
     private Vector3 playerPos;
     private PlayerController playerController;
     private BoxCollider2D playerCollider;
 
     private Rigidbody2D rb;
+
+    //audio
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private Sound[] sounds;
 
     // Start is called before the first frame update
     void Start()
@@ -81,6 +88,7 @@ public class EnemyController : MonoBehaviour
                 if(Vector2.Distance(playerPos, transform.position) < range)
                 {
                     //SFX
+                    PlaySFX("Explode", 0.05f, 1f);
                     playerController.Damage(5);
                     Death();
                 }
@@ -95,6 +103,7 @@ public class EnemyController : MonoBehaviour
         {
             if (Vector2.Distance(playerPos, transform.position) < range)
             {
+                PlaySFX("Kiss", 0.05f, 1f);
                 playerController.Damage(1);
                 size++;
                 range = Mathf.Sqrt(size)/2f;
@@ -113,6 +122,7 @@ public class EnemyController : MonoBehaviour
         {
             if (Vector2.Distance(playerPos, transform.position) < range)
             {
+                PlaySFX("Shoot", 0.05f, 1f);
                 GameObject bullet = Instantiate(bulletObject, transform.position, Quaternion.identity);
                 BulletController bulletController = bullet.GetComponent<BulletController>();
                 bulletController.SetDamage(bulletDamage);
@@ -143,17 +153,18 @@ public class EnemyController : MonoBehaviour
 
     public void Damage(int damage)
     {
-        //SFX
-
         size -= damage;
 
         if(size <=0)
         {
             size = 0;
+            Instantiate(slimeBall, transform.position, Quaternion.identity);
             Death();
         }
         else
         {
+            PlaySFX("Slap", 0.05f, 1f);
+
             for (int i = 0; i < Random.Range(1, damage); i++)
             {
                 Instantiate(slimeBall, transform.position, Quaternion.identity);
@@ -164,6 +175,31 @@ public class EnemyController : MonoBehaviour
                 range = Mathf.Sqrt(size) / 2f;
                 transform.localScale = new Vector3(Mathf.Sqrt(size), Mathf.Sqrt(size), 1);
             }
+        }
+    }
+
+    private void PlaySFX(string name, float variation, float volume)
+    {
+        Sound s = null;
+
+        for (int i = 0; i < sounds.Length; i++)
+        {
+            if (sounds[i].name == name)
+            {
+                s = sounds[i];
+            }
+        }
+
+        audioSource.pitch = Random.Range(1f - variation, 1f + variation);
+        audioSource.volume = volume;
+
+        if (s == null)
+        {
+            Debug.LogError("SoundNotFound");
+        }
+        else
+        {
+            audioSource.PlayOneShot(s.clip);
         }
     }
 

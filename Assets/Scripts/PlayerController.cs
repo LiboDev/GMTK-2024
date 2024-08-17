@@ -52,7 +52,9 @@ public class PlayerController : MonoBehaviour
     //General Camera Variables
     private CinemachineVirtualCamera playerCamera;
 
-
+    //audio
+    [SerializeField] private Sound[] sounds;
+    [SerializeField] private AudioSource audioSource;
 
 
     // Start is called before the first frame update
@@ -83,26 +85,22 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.UpArrow))
             {
                 FireUp();
-                canShoot = false;
-                Invoke("Reload", 1f / bulletsPerSecond);
+                Shoot();
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
                 FireDown();
-                canShoot = false;
-                Invoke("Reload", 1f / bulletsPerSecond);
+                Shoot();
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
                 FireRight();
-                canShoot = false;
-                Invoke("Reload", 1f / bulletsPerSecond);
+                Shoot();
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
                 FireLeft();
-                canShoot = false;
-                Invoke("Reload", 1f / bulletsPerSecond);
+                Shoot();
             }
         }
 
@@ -120,6 +118,14 @@ public class PlayerController : MonoBehaviour
     private void Reload()
     {
         canShoot = true;
+    }
+
+    private void Shoot()
+    {
+        canShoot = false;
+        Invoke("Reload", 1f / bulletsPerSecond);
+
+        PlaySFX("Shoot", 0.05f, 1f);
     }
 
     private void FireUp()
@@ -564,6 +570,7 @@ public class PlayerController : MonoBehaviour
     public void Damage(int damage)
     {
         //SFX
+        PlaySFX("Damage", 0.05f, damage/2f);
 
         playerSize -= damage;
         
@@ -578,6 +585,8 @@ public class PlayerController : MonoBehaviour
     public void Grow(int num)
     {
         //SFX
+        PlaySFX("Grow", 0f, 0.5f);
+
         playerSize += num;
 
         if(playerSize >= 100)
@@ -585,5 +594,30 @@ public class PlayerController : MonoBehaviour
             playerSize = 100;
         }
 
+    }
+
+    private void PlaySFX(string name, float variation, float volume)
+    {
+        Sound s = null;
+
+        for (int i = 0; i < sounds.Length; i++)
+        {
+            if (sounds[i].name == name)
+            {
+                s = sounds[i];
+            }
+        }
+
+        audioSource.pitch = Random.Range(1f - variation, 1f + variation);
+        audioSource.volume = volume;
+
+        if (s == null)
+        {
+            Debug.LogError("SoundNotFound");
+        }
+        else
+        {
+            audioSource.PlayOneShot(s.clip);
+        }
     }
 }
