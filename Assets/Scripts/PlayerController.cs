@@ -370,7 +370,7 @@ public class PlayerController : MonoBehaviour
                 body.transform.localScale = Vector2.one;
             }
         }
-        else
+        else if ((Mathf.Abs(body.transform.localScale.x) + Mathf.Abs(body.transform.localScale.y)) < playerSize)
         {
             Vector3 changeFromStartingPos = headTransform.localPosition - initialPosition - new Vector3(0.5f, 0.5f, 0);
             if (bodyXFlipped && bodyYFlipped)
@@ -399,7 +399,7 @@ public class PlayerController : MonoBehaviour
             body.transform.position += initialPosition;
         }
 
-        if (!stretched)
+        if (!stretched && (Mathf.Abs(body.transform.localScale.x) + Mathf.Abs(body.transform.localScale.y)) < playerSize)
         {
             switch (xStretchDir)
             {
