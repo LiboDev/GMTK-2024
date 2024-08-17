@@ -4,26 +4,33 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    //General body variables
     private Rigidbody2D headRigidbody2D;
     private Transform headTransform;
 
-    private GameObject body;
+    //Head movement variables
     private float speed = 10;
 
+    //General body variables
+    private GameObject body;
+
+    //Variables related to the body stretching
     private bool stretching = false;
     private bool stretched = false;
-    public string xStretchDir = "none";
-    public string yStretchDir = "none";
+    private string xStretchDir = "none";
+    private string yStretchDir = "none";
 
-    [SerializeField] Vector2 returnTarget = new Vector2(-1, -1);
-    public bool bodyReturning = false;
+    //Variables relating to the body returning to the head
+    Vector2 returnTarget = new Vector2(-1, -1);
+    private bool bodyReturning = false;
     private float bodyReturnStartTime;
-    private Vector3 startBodyPos;
     private Vector3 startBodyScale;
 
+    //Auxillary variables for manipulating the body
+    //The head's initial position before a stretch
     private Vector3 initialPosition;
-    public bool bodyXFlipped = false;
-    public bool bodyYFlipped = false;
+    private bool bodyXFlipped = false;
+    private bool bodyYFlipped = false;
 
     //stats
     private int size = 10;
@@ -37,6 +44,7 @@ public class PlayerController : MonoBehaviour
         headRigidbody2D = transform.GetChild(0).GetComponent<Rigidbody2D>();
         headTransform = transform.GetChild(0).GetComponent<Transform>();
         body = transform.GetChild(1).gameObject;
+        //Save the head's initial position
         initialPosition = headTransform.localPosition;
     }
 
@@ -121,7 +129,6 @@ public class PlayerController : MonoBehaviour
 
             bodyReturning = true;
             bodyReturnStartTime = Time.time;
-            startBodyPos = body.transform.localPosition;
             startBodyScale = body.transform.localScale;
         }
 
