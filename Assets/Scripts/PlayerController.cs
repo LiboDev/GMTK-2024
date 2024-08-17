@@ -5,7 +5,7 @@ using Cinemachine;
 
 public class PlayerController : MonoBehaviour
 {
-    //General body variables
+    //General head variables
     private Rigidbody2D headRigidbody2D;
     private Transform headTransform;
 
@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     //General body variables
     private GameObject body;
+    private SpriteRenderer bodySpriteRenderer;
 
     //Variables related to the body stretching
     private bool canStretch = true;
@@ -37,7 +38,7 @@ public class PlayerController : MonoBehaviour
     private bool bodyYFlipped = false;
 
     //stats
-    private int playerSize = 10;
+    [SerializeField] private int playerSize = 10;
     private float bulletInterval = 1.5f;
 
     //Prefabs
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         headTransform = transform.GetChild(0).GetComponent<Transform>();
         playerCamera = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<CinemachineVirtualCamera>();
         body = transform.GetChild(1).gameObject;
+        bodySpriteRenderer = body.GetComponent<SpriteRenderer>();
         //Save the head's initial position
         initialPosition = headTransform.localPosition;
     }
@@ -84,6 +86,17 @@ public class PlayerController : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             FireLeft();
+        }
+
+        if (stretching || stretched)
+        {
+            print("Prechange color: " + bodySpriteRenderer.color);
+            bodySpriteRenderer.color = new Color(bodySpriteRenderer.color.r, bodySpriteRenderer.color.g, bodySpriteRenderer.color.b, 0.75f);
+            print("After change color: " + bodySpriteRenderer.color);
+        }
+        else
+        {
+            bodySpriteRenderer.color = new Color(bodySpriteRenderer.color.r, bodySpriteRenderer.color.g, bodySpriteRenderer.color.b, 1);
         }
     }
 
