@@ -38,10 +38,11 @@ public class PlayerBullet : MonoBehaviour
         }
     }
 
-    public void Initialize(Vector2 bulletDir, int damage, float knockback)
+    public void Initialize(Vector2 bulletDir, int damage, float knockback, float range)
     {
         SetDamage(damage);
         SetKnockback(knockback);
+        despawnTime = range;
         movementDirection = bulletDir;
         if (bulletDir.y < 0)
         {

@@ -163,7 +163,7 @@ public class PlayerController : MonoBehaviour
                 bulletPos = new Vector2(bulletPos.x, headTransform.position.y + body.transform.localScale.y);
             }
             GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, 1)));
-            temp.GetComponent<PlayerBullet>().Initialize(Vector2.up, bulletDamage, bulletKnockback);
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.up, bulletDamage, bulletKnockback, range);
         }
         else
         {
@@ -186,7 +186,7 @@ public class PlayerController : MonoBehaviour
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y + body.transform.localScale.y);
                 }
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, 1)));
-                temp.GetComponent<PlayerBullet>().Initialize(Vector2.up, bulletDamage, bulletKnockback);
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.up, bulletDamage, bulletKnockback, range);
             }
         }
     }
@@ -205,7 +205,7 @@ public class PlayerController : MonoBehaviour
                 bulletPos = new Vector2(bulletPos.x, headTransform.position.y - 1);
             }
             GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, -1)));
-            temp.GetComponent<PlayerBullet>().Initialize(Vector2.down, bulletDamage, bulletKnockback);
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.down, bulletDamage, bulletKnockback, range);
         }
         else
         {
@@ -228,7 +228,7 @@ public class PlayerController : MonoBehaviour
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y - 1);
                 }
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, -1)));
-                temp.GetComponent<PlayerBullet>().Initialize(Vector2.down, bulletDamage, bulletKnockback);
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.down, bulletDamage, bulletKnockback, range);
             }
         }
     }
@@ -247,7 +247,7 @@ public class PlayerController : MonoBehaviour
                 bulletPos = new Vector2(headTransform.position.x + body.transform.localScale.x, bulletPos.y);
             }
             GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.right));
-            temp.GetComponent<PlayerBullet>().Initialize(Vector2.right, bulletDamage, bulletKnockback);
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.right, bulletDamage, bulletKnockback, range);
         }
         else
         {
@@ -270,7 +270,7 @@ public class PlayerController : MonoBehaviour
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y + (bulletInterval * i));
                 }
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.right));
-                temp.GetComponent<PlayerBullet>().Initialize(Vector2.right, bulletDamage, bulletKnockback);
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.right, bulletDamage, bulletKnockback, range);
             }
         }
     }
@@ -289,7 +289,7 @@ public class PlayerController : MonoBehaviour
                 bulletPos = new Vector2(headTransform.position.x - 1, bulletPos.y);
             }
             GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.left));
-            temp.GetComponent<PlayerBullet>().Initialize(Vector2.left, bulletDamage, bulletKnockback);
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.left, bulletDamage, bulletKnockback, range);
         }
         else
         {
@@ -312,7 +312,7 @@ public class PlayerController : MonoBehaviour
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y + (bulletInterval * i));
                 }
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.left));
-                temp.GetComponent<PlayerBullet>().Initialize(Vector2.left, bulletDamage, bulletKnockback);
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.left, bulletDamage, bulletKnockback, range);
             }
         }
     }
