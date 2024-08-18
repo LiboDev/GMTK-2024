@@ -159,6 +159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0474934fbf85e9b41a8608bd5dc7f2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  returnTimeModifier: 1
   bodyXFlipped: 0
   playerSize: 10
   bulletInterval: 1.5
@@ -18989,6 +18990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0474934fbf85e9b41a8608bd5dc7f2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  returnTimeModifier: 2
   bodyXFlipped: 0
   playerSize: 35
   bulletInterval: 1

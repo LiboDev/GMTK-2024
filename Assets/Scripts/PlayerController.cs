@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private bool yStretched = false;
 
     //Variables relating to the body returning to the head
+    [SerializeField] private float returnTimeModifier = 1;
     Vector2 returnTarget = new Vector2(-1, -1);
     private bool bodyReturning = false;
     private float bodyReturnStartTime;
@@ -612,7 +613,7 @@ public class PlayerController : MonoBehaviour
                 while (new Vector2(body.transform.localScale.x, body.transform.localScale.y) != new Vector2(1, 1))
                 {
                     startPos = Vector2.Lerp(initialPos, headTransform.position, time);
-                    time += Time.deltaTime;
+                    time += Time.deltaTime * returnTimeModifier;
                     yield return null;
                 }
                 body.transform.localScale = new Vector3(1, 1, 0);
