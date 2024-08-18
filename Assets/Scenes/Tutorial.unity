@@ -342,7 +342,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.842957
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1329,6 +1329,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8824273243114979427, guid: f89cb31f1974f014e9fa5685aa990c1e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8824273243114979427, guid: f89cb31f1974f014e9fa5685aa990c1e, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9005334213294658044, guid: f89cb31f1974f014e9fa5685aa990c1e, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1638,7 +1646,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1773844047}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 7.842957
+    OrthographicSize: 10
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0

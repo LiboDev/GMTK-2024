@@ -8,6 +8,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject[] enemies;
     [SerializeField] private Transform player;
 
+    [SerializeField] private GameObject pauseMenu;
+
     //tracking
     private int wave = 1;
 
@@ -16,6 +18,28 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         StartCoroutine(Wave());
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ToggleTime();
+        }
+    }
+
+    public void ToggleTime()
+    {
+        if(Time.timeScale == 1)
+        {
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+        }
+        else if(Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
+        }
     }
 
     private IEnumerator Wave()
