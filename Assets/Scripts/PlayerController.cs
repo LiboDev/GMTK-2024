@@ -330,7 +330,6 @@ public class PlayerController : MonoBehaviour
                 }
                 if (Input.GetKey(KeyCode.S))
                 {
-                    print("hit");
                     yStretchDir = "down";
                     bodyYFlipped = false;
                     returnTarget = new Vector2(returnTarget.x, -1);
