@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnTimeModifier: 1
-  bodyXFlipped: 0
   playerSize: 10
   bulletInterval: 1.5
   range: 10
@@ -413,10 +412,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnTimeModifier: 2
-  bodyXFlipped: 0
   playerSize: 35
   bulletInterval: 1
-  range: 10
+  range: 2
   bulletDamage: 1
   bulletKnockback: 1
   bulletsPerSecond: 5

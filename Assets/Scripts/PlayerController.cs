@@ -25,13 +25,13 @@ public class PlayerController : MonoBehaviour
 
     //stats
     [SerializeField] private int playerSize = 25;
-    [SerializeField] private float bulletInterval = 1.5f;
-    [SerializeField] private float range = 10f;
-    [SerializeField] private int bulletDamage = 1;
-    [SerializeField] private float bulletKnockback = 0;
+    [SerializeField] public float bulletInterval = 1.5f;
+    [SerializeField] public float range = 10f;
+    [SerializeField] public int bulletDamage = 1;
+    [SerializeField] public float bulletKnockback = 0;
     //
     private bool canShoot = true;
-    [SerializeField] private int bulletsPerSecond = 1;
+    [SerializeField] public int bulletsPerSecond = 1;
 
     //Prefabs
     [SerializeField] private GameObject bulletPrefab;
@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
 
     //Objects
     [SerializeField] private Slider gooBar;
+    [SerializeField] private GameObject upgradePanel;
 
     //audio
     [SerializeField] private Sound[] sounds;
@@ -320,6 +321,12 @@ public class PlayerController : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public void StartUpgrade(GameObject spawner)
+    {
+        upgradePanel.SetActive(true);
+        upgradePanel.GetComponent<UpgradeMenu>().SetEnemySpawner(spawner);
     }
 
     public void Damage(int damage)

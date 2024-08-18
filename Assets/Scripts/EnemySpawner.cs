@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -12,11 +13,22 @@ public class EnemySpawner : MonoBehaviour
 
     //tracking
     private int wave = 1;
+    public bool waveStart = true;
+
+    //Events
+    UnityEvent<GameObject> waveOver;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        if (waveOver == null)
+        {
+            waveOver = new UnityEvent<GameObject>();
+        }
+
+        waveOver.AddListener(player.gameObject.GetComponent<PlayerController>().StartUpgrade);
+
         StartCoroutine(Wave());
     }
 
@@ -78,6 +90,12 @@ public class EnemySpawner : MonoBehaviour
             }
 
             yield return new WaitUntil(() => transform.childCount <= 0);
+
+            waveOver.Invoke(gameObject);
+
+            waveStart = false;
+
+            yield return new WaitUntil(() => waveStart);
 
             //play sfx loop again
 
