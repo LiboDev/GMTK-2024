@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 709387727692318754}
   - component: {fileID: 8466378888198750267}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy 2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -100,15 +100,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577f8203d13c8634f9f1705325673839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
   destruction: {fileID: 6674000813560781546, guid: 0b1572fd6fd89d841a6305d599ddea0d, type: 3}
   bulletObject: {fileID: 2994321768068725811, guid: cbe7d8773cea7774c953d09f3e88d1bf, type: 3}
   slimeBall: {fileID: 3220099324099157160, guid: 4b97efa5e5530e54c847721f3b86f8cc, type: 3}
-  size: 1
+  size: 0
   speed: 5
-  range: 1
-  bulletsPerSecond: 0
-  bulletDamage: 0
+  range: 10
+  bulletsPerSecond: 2
+  bulletDamage: 1
   audioSource: {fileID: 8466378888198750267}
   sounds:
   - name: Slap

@@ -39,6 +39,7 @@ public class EnemyController : MonoBehaviour
         if (type == 0)
         {
             StartCoroutine(Creeper());
+            range = Mathf.Sqrt(size) / 2f;
         }
         else if (type == 1)
         {
@@ -87,7 +88,7 @@ public class EnemyController : MonoBehaviour
                 {
                     //SFX
                     PlaySFX("Explode", 0.05f, 1f);
-                    playerController.Damage(5);
+                    playerController.Damage(5*size);
                     Death();
                 }
             }
@@ -171,8 +172,9 @@ public class EnemyController : MonoBehaviour
             if(type != 2)
             {
                 range = Mathf.Sqrt(size) / 2f;
-                transform.localScale = new Vector3(Mathf.Sqrt(size), Mathf.Sqrt(size), 1);
             }
+
+            transform.localScale = new Vector3(Mathf.Sqrt(size), Mathf.Sqrt(size), 1);
         }
     }
 

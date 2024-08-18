@@ -2214,6 +2214,8 @@ MonoBehaviour:
   bulletDamage: 1
   bulletsPerSecond: 1
   bulletPrefab: {fileID: 3832082420904362824, guid: e418bf758e9569c45aec47d0b457bfaa, type: 3}
+  sounds: []
+  audioSource: {fileID: 0}
 --- !u!4 &1746532350
 Transform:
   m_ObjectHideFlags: 0
@@ -2441,6 +2443,8 @@ MonoBehaviour:
   bulletDamage: 1
   bulletsPerSecond: 1
   bulletPrefab: {fileID: 0}
+  sounds: []
+  audioSource: {fileID: 0}
 --- !u!212 &1784493607
 SpriteRenderer:
   m_ObjectHideFlags: 0
