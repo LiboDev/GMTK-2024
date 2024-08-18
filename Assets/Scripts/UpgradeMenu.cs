@@ -39,6 +39,13 @@ public class UpgradeMenu : MonoBehaviour
                 player.range++;
                 break;
 
+            case "damageReduction":
+                player.damageReduction++;
+                break;
+
+            case "speed":
+                player.speed++;
+                break;
         }
 
         gameObject.SetActive(false);

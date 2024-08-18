@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private Transform headTransform;
 
     //Head movement variables
-    private float speed = 10;
+    public float speed = 10;
 
     //General body variables
     private GameObject body;
@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public float range = 10f;
     [SerializeField] public int bulletDamage = 1;
     [SerializeField] public float bulletKnockback = 0;
+    [SerializeField] public int damageReduction;
     //
     private bool canShoot = true;
     [SerializeField] public int bulletsPerSecond = 1;
@@ -329,8 +330,15 @@ public class PlayerController : MonoBehaviour
         upgradePanel.GetComponent<UpgradeMenu>().SetEnemySpawner(spawner);
     }
 
-    public void Damage(int damage)
+    public void Damage(int enemyDamage)
     {
+        int damage = enemyDamage - damageReduction;
+
+        if (damage < 0)
+        {
+            damage = 0;
+        }
+
         //SFX
         PlaySFX("Damage", 0.05f, damage/2f);
 
