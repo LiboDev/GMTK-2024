@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer bodySpriteRenderer;
 
     //Variables related to the body stretching
+    private Vector3 startPos;
     private bool canStretch = true;
     private bool stretching = false;
     private bool stretched = false;
@@ -69,6 +70,10 @@ public class PlayerController : MonoBehaviour
         bodySpriteRenderer = body.GetComponent<SpriteRenderer>();
         //Save the head's initial position
         initialPosition = headTransform.localPosition;
+
+        startPos = headTransform.position;
+
+        StartCoroutine(Stretch());
     }
 
     // Update is called once per frame
@@ -80,7 +85,10 @@ public class PlayerController : MonoBehaviour
             playerCamera.m_Lens.OrthographicSize = 10;
         }
 
-        PlayerMovement();
+        //PlayerMovement();
+
+        body.transform.position = (headTransform.position + startPos) / 2;
+        body.transform.localScale = new Vector3(Mathf.Abs(headTransform.position.x - startPos.x) + 1, Mathf.Abs(headTransform.position.y - startPos.y) + 1, 0);
 
         if (canShoot)
         {
@@ -135,22 +143,22 @@ public class PlayerController : MonoBehaviour
         Vector2 bulletPos = headTransform.position;
         if ((int)(body.transform.localScale.x / bulletInterval) == 0)
         {
-            if (bodyYFlipped)
+            if (headTransform.position.y > startPos.y)
             {
                 bulletPos = new Vector2(bulletPos.x, headTransform.position.y + 1);
             }
             else
             {
-                bulletPos = new Vector2(bulletPos.x, headTransform.position.y - body.transform.localScale.y);
+                bulletPos = new Vector2(bulletPos.x, headTransform.position.y + body.transform.localScale.y);
             }
             GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, 1)));
             temp.GetComponent<PlayerBullet>().Initialize(Vector2.up);
         }
         else
         {
-            for (int i = 0; i < Mathf.Abs((int)(body.transform.localScale.x / bulletInterval)); i++)
+            for (int i = 0; i < (int)(body.transform.localScale.x / bulletInterval); i++)
             {
-                if (bodyXFlipped)
+                if (headTransform.position.x > startPos.x)
                 {
                     bulletPos = new Vector2(headTransform.position.x - (bulletInterval * i), bulletPos.y);
                 }
@@ -158,13 +166,13 @@ public class PlayerController : MonoBehaviour
                 {
                     bulletPos = new Vector2(headTransform.position.x + (bulletInterval * i), bulletPos.y);
                 }
-                if (bodyYFlipped)
+                if (headTransform.position.y > startPos.y)
                 {
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y + 1);
                 }
                 else
                 {
-                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y - body.transform.localScale.y);
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y + body.transform.localScale.y);
                 }
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, 1)));
                 temp.GetComponent<PlayerBullet>().Initialize(Vector2.up);
@@ -177,7 +185,7 @@ public class PlayerController : MonoBehaviour
         Vector2 bulletPos = headTransform.position;
         if ((int)(body.transform.localScale.x / bulletInterval) == 0)
         {
-            if (bodyYFlipped)
+            if (headTransform.position.y > startPos.y)
             {
                 bulletPos = new Vector2(bulletPos.x, headTransform.position.y + body.transform.localScale.y);
             }
@@ -192,7 +200,7 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < Mathf.Abs((int)(body.transform.localScale.x / bulletInterval)); i++)
             {
-                if (bodyXFlipped)
+                if (headTransform.position.x > startPos.x)
                 {
                     bulletPos = new Vector2(headTransform.position.x - (bulletInterval * i), bulletPos.y);
                 }
@@ -200,7 +208,7 @@ public class PlayerController : MonoBehaviour
                 {
                     bulletPos = new Vector2(headTransform.position.x + (bulletInterval * i), bulletPos.y);
                 }
-                if (bodyYFlipped)
+                if (headTransform.position.y > startPos.y)
                 {
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y - body.transform.localScale.y);
                 }
@@ -219,13 +227,13 @@ public class PlayerController : MonoBehaviour
         Vector2 bulletPos = headTransform.position;
         if ((int)(body.transform.localScale.y / bulletInterval) == 0)
         {
-            if (bodyXFlipped)
+            if (headTransform.position.x > startPos.x)
             {
                 bulletPos = new Vector2(headTransform.position.x + 1, bulletPos.y);
             }
             else
             {
-                bulletPos = new Vector2(headTransform.position.x - body.transform.localScale.x, bulletPos.y);
+                bulletPos = new Vector2(headTransform.position.x + body.transform.localScale.x, bulletPos.y);
             }
             GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.right));
             temp.GetComponent<PlayerBullet>().Initialize(Vector2.right);
@@ -234,15 +242,15 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < Mathf.Abs((int)(body.transform.localScale.y / bulletInterval)); i++)
             {
-                if (bodyXFlipped)
+                if (headTransform.position.x > startPos.x)
                 {
                     bulletPos = new Vector2(headTransform.position.x + 1, bulletPos.y);
                 }
                 else
                 {
-                    bulletPos = new Vector2(headTransform.position.x - body.transform.localScale.x, bulletPos.y);
+                    bulletPos = new Vector2(headTransform.position.x + body.transform.localScale.x, bulletPos.y);
                 }
-                if (bodyYFlipped)
+                if (headTransform.position.y > startPos.y)
                 {
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y - (bulletInterval * i));
                 }
@@ -261,7 +269,7 @@ public class PlayerController : MonoBehaviour
         Vector2 bulletPos = headTransform.position;
         if ((int)(body.transform.localScale.y / bulletInterval) == 0)
         {
-            if (bodyXFlipped)
+            if (headTransform.position.x > startPos.x)
             {
                 bulletPos = new Vector2(headTransform.position.x - body.transform.localScale.x, bulletPos.y);
             }
@@ -276,7 +284,7 @@ public class PlayerController : MonoBehaviour
         {
             for (int i = 0; i < Mathf.Abs((int)(body.transform.localScale.y / bulletInterval)); i++)
             {
-                if (bodyXFlipped)
+                if (headTransform.position.x > startPos.x)
                 {
                     bulletPos = new Vector2(headTransform.position.x - body.transform.localScale.x, bulletPos.y);
                 }
@@ -284,7 +292,7 @@ public class PlayerController : MonoBehaviour
                 {
                     bulletPos = new Vector2(headTransform.position.x - 1, bulletPos.y);
                 }
-                if (bodyYFlipped)
+                if (headTransform.position.y > startPos.y)
                 {
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y - (bulletInterval * i));
                 }
@@ -572,6 +580,44 @@ public class PlayerController : MonoBehaviour
             startBodyScale = body.transform.localScale;
             xStretched = false;
             yStretched = false;
+        }
+    }
+
+    private IEnumerator Stretch()
+    {
+        while (true)
+        {
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W))
+            {
+                startPos = headTransform.position;
+
+                while (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W))
+                {
+                        Vector2 movementVector = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+                        movementVector.Normalize();
+                    if (!((Mathf.Abs(body.transform.localScale.x) * Mathf.Abs(body.transform.localScale.y)) >= playerSize) || Mathf.Abs(headTransform.position.x - startPos.x) > Mathf.Abs(headTransform.position.x - startPos.x + movementVector.x) || Mathf.Abs(headTransform.position.y - startPos.y) > Mathf.Abs(headTransform.position.y - startPos.y + movementVector.y))
+                    {
+                        headTransform.position += new Vector3(movementVector.x, movementVector.y, 0) * Time.deltaTime * speed;
+                    }
+
+                    yield return null;
+                }
+            }
+
+            if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.S) || Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.W))
+            {
+                Vector2 initialPos = startPos;
+                float time = 0;
+
+                while (new Vector2(body.transform.localScale.x, body.transform.localScale.y) != new Vector2(1, 1))
+                {
+                    startPos = Vector2.Lerp(initialPos, headTransform.position, time);
+                    time += Time.deltaTime;
+                    yield return null;
+                }
+                body.transform.localScale = new Vector3(1, 1, 0);
+            }
+            yield return null;
         }
     }
 
