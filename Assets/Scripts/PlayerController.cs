@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -57,6 +58,9 @@ public class PlayerController : MonoBehaviour
     //General Camera Variables
     private CinemachineVirtualCamera playerCamera;
 
+    //Objects
+    [SerializeField] private Slider gooBar;
+
     //audio
     [SerializeField] private Sound[] sounds;
     [SerializeField] private AudioSource audioSource;
@@ -85,6 +89,11 @@ public class PlayerController : MonoBehaviour
         if (playerCamera.m_Lens.OrthographicSize < 10)
         {
             playerCamera.m_Lens.OrthographicSize = 10;
+        }
+
+        if (gooBar != null)
+        {
+            gooBar.value = (body.transform.localScale.x * body.transform.localScale.y) / playerSize;
         }
 
         //PlayerMovement();
