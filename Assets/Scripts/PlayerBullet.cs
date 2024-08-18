@@ -15,6 +15,8 @@ public class PlayerBullet : MonoBehaviour
 
     [SerializeField] private int damage = 1;
 
+    [SerializeField] private float knockback = 0;
+
     Rigidbody2D bulletRigidbody;
 
     // Start is called before the first frame update
@@ -36,8 +38,10 @@ public class PlayerBullet : MonoBehaviour
         }
     }
 
-    public void Initialize(Vector2 bulletDir)
+    public void Initialize(Vector2 bulletDir, int damage, float knockback)
     {
+        SetDamage(damage);
+        SetKnockback(knockback);
         movementDirection = bulletDir;
         if (bulletDir.y < 0)
         {
@@ -50,11 +54,16 @@ public class PlayerBullet : MonoBehaviour
         this.damage = damage;
     }
 
+    public void SetKnockback(float knockback)
+    {
+        this.knockback = knockback;
+    }
+
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Enemy")
         {
-            other.gameObject.transform.GetComponent<EnemyController>().Damage(damage);
+            other.gameObject.transform.GetComponent<EnemyController>().Damage(damage, knockback);
             Death();
         }
     }

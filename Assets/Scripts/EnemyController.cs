@@ -150,7 +150,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    public void Damage(int damage)
+    public void Damage(int damage, float knockback)
     {
         size -= damage;
 
@@ -175,6 +175,8 @@ public class EnemyController : MonoBehaviour
             }
 
             transform.localScale = new Vector3(Mathf.Sqrt(size), Mathf.Sqrt(size), 1);
+            Vector3 temp = (transform.position - playerPos).normalized * -1 * knockback;
+            transform.position -= temp;
         }
     }
 

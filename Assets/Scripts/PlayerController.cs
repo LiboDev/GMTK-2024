@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float bulletInterval = 1.5f;
     [SerializeField] private float range = 10f;
     [SerializeField] private int bulletDamage = 1;
+    [SerializeField] private float bulletKnockback = 0;
     //
     private bool canShoot = true;
     [SerializeField] private int bulletsPerSecond = 1;
@@ -153,7 +154,7 @@ public class PlayerController : MonoBehaviour
                 bulletPos = new Vector2(bulletPos.x, headTransform.position.y + body.transform.localScale.y);
             }
             GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, 1)));
-            temp.GetComponent<PlayerBullet>().Initialize(Vector2.up);
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.up, bulletDamage, bulletKnockback);
         }
         else
         {
@@ -176,7 +177,7 @@ public class PlayerController : MonoBehaviour
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y + body.transform.localScale.y);
                 }
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, 1)));
-                temp.GetComponent<PlayerBullet>().Initialize(Vector2.up);
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.up, bulletDamage, bulletKnockback);
             }
         }
     }
@@ -195,7 +196,7 @@ public class PlayerController : MonoBehaviour
                 bulletPos = new Vector2(bulletPos.x, headTransform.position.y - 1);
             }
             GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, -1)));
-            temp.GetComponent<PlayerBullet>().Initialize(Vector2.down);
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.down, bulletDamage, bulletKnockback);
         }
         else
         {
@@ -218,7 +219,7 @@ public class PlayerController : MonoBehaviour
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y - 1);
                 }
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, -1)));
-                temp.GetComponent<PlayerBullet>().Initialize(Vector2.down);
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.down, bulletDamage, bulletKnockback);
             }
         }
     }
@@ -237,7 +238,7 @@ public class PlayerController : MonoBehaviour
                 bulletPos = new Vector2(headTransform.position.x + body.transform.localScale.x, bulletPos.y);
             }
             GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.right));
-            temp.GetComponent<PlayerBullet>().Initialize(Vector2.right);
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.right, bulletDamage, bulletKnockback);
         }
         else
         {
@@ -260,7 +261,7 @@ public class PlayerController : MonoBehaviour
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y + (bulletInterval * i));
                 }
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.right));
-                temp.GetComponent<PlayerBullet>().Initialize(Vector2.right);
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.right, bulletDamage, bulletKnockback);
             }
         }
     }
@@ -279,7 +280,7 @@ public class PlayerController : MonoBehaviour
                 bulletPos = new Vector2(headTransform.position.x - 1, bulletPos.y);
             }
             GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.left));
-            temp.GetComponent<PlayerBullet>().Initialize(Vector2.left);
+            temp.GetComponent<PlayerBullet>().Initialize(Vector2.left, bulletDamage, bulletKnockback);
         }
         else
         {
@@ -302,7 +303,7 @@ public class PlayerController : MonoBehaviour
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y + (bulletInterval * i));
                 }
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.left));
-                temp.GetComponent<PlayerBullet>().Initialize(Vector2.left);
+                temp.GetComponent<PlayerBullet>().Initialize(Vector2.left, bulletDamage, bulletKnockback);
             }
         }
     }
@@ -639,122 +640,40 @@ public class PlayerController : MonoBehaviour
         {
             if (Mathf.Abs(body.transform.localScale.x) >= 1 && Mathf.Abs(body.transform.localScale.y) >= 1)
             {
-                if (bodyXFlipped && bodyYFlipped)
+                if ((Mathf.Abs(body.transform.localScale.x) * Mathf.Abs(body.transform.localScale.y)) >= playerSize)
                 {
-                    float bodyScaleXDifference = body.transform.localScale.x - 1;
-                    float bodyScaleYDifference = body.transform.localScale.y - 1;
-                    if ((body.transform.localScale.x <= 1 + Mathf.Sqrt(1)) && body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
+                    float moddedSize = playerSize + damage;
+                    float sizeMod = playerSize / moddedSize;
+                    print("Size: " + playerSize + "\nDamage: " + damage + "\nSize + Damage: " + (playerSize + damage) + "\nCalculation: " + (playerSize / moddedSize) + "\nMod: " + sizeMod);
+                    print("Pre-mod: " + headTransform.position);
+                    Vector2 headPos = headTransform.position;
+                    Vector2 absStartPos = new Vector2(Mathf.Abs(startPos.x), Mathf.Abs(startPos.y));
+                    if (Mathf.Abs(headPos.x * sizeMod - startPos.x) >= 1 && Mathf.Abs(headPos.y * sizeMod - startPos.y) >= 1)
                     {
-                        body.transform.localScale = new Vector3(1, 1, body.transform.localScale.z);
-                        body.transform.localPosition -= new Vector3(bodyScaleXDifference, bodyScaleYDifference, 0);
-                        headTransform.localPosition = body.transform.localPosition;
+                        print("Normal change");
+                        headTransform.position = (headTransform.position - startPos) * sizeMod + startPos;
                     }
-                    else if (body.transform.localScale.x <= 1 + Mathf.Sqrt(1))
+                    else if (Mathf.Abs(headPos.x * sizeMod - startPos.x) >= 1)
                     {
-                        body.transform.localScale = new Vector3(1, body.transform.localScale.y - 1, body.transform.localScale.z);
-                        body.transform.localPosition -= new Vector3(bodyScaleXDifference, 0.5f, 0);
-                        headTransform.localPosition -= new Vector3(bodyScaleXDifference, 0.5f, 0);
+                        print("Y is too small");
+                        headTransform.position = new Vector2((headTransform.position.x - startPos.x) * sizeMod + startPos.x, startPos.y);
                     }
-                    else if (body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
+                    else if (Mathf.Abs(headPos.y * sizeMod - startPos.y) >= 1)
                     {
-                        body.transform.localScale = new Vector3(body.transform.localScale.x - 1, 1, body.transform.localScale.z);
-                        body.transform.localPosition -= new Vector3(0.5f, bodyScaleYDifference, 0);
-                        headTransform.localPosition -= new Vector3(0.5f, bodyScaleYDifference, 0);
+                        print("X is too small");
+                        headTransform.position = new Vector2(startPos.x, (headTransform.position.y - startPos.y) * sizeMod + startPos.y);
                     }
                     else
                     {
-                        body.transform.localScale -= new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0);
-                        body.transform.localPosition -= (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
-                        headTransform.localPosition -= (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
+                        print("X & Y are too small");
+                        headTransform.position = startPos;
                     }
+                    print("Post-mod: " + headTransform.position);
                 }
-                else if (bodyXFlipped)
-                {
-                    float bodyScaleXDifference = body.transform.localScale.x - 1;
-                    float bodyScaleYDifference = body.transform.localScale.y + 1;
-                    if ((body.transform.localScale.x <= 1 + Mathf.Sqrt(1)) && body.transform.localScale.y >= -1 - Mathf.Sqrt(1))
-                    {
-                        body.transform.localScale = new Vector3(1, -1, body.transform.localScale.z);
-                        body.transform.localPosition += new Vector3(bodyScaleXDifference, bodyScaleYDifference, body.transform.localPosition.z);
-                        headTransform.localPosition = body.transform.localPosition;
-                    }
-                    else if (body.transform.localScale.x <= 1 + Mathf.Sqrt(1))
-                    {
-                        body.transform.localScale = new Vector3(1, body.transform.localScale.y + 1, body.transform.localScale.z);
-                        body.transform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
-                        headTransform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
-                    }
-                    else if (body.transform.localScale.y >= -1 - Mathf.Sqrt(1))
-                    {
-                        body.transform.localScale = new Vector3(body.transform.localScale.x - 1, 1, body.transform.localScale.z);
-                        body.transform.localPosition += new Vector3(-0.5f, bodyScaleYDifference, 0);
-                        headTransform.localPosition += new Vector3(-0.5f, bodyScaleYDifference, 0);
-                    }
-                    else
-                    {
-                        body.transform.localScale += new Vector3(-Mathf.Sqrt(1), Mathf.Sqrt(1), 0);
-                        body.transform.localPosition += (new Vector3(-Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
-                        headTransform.localPosition += (new Vector3(-Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
-                    }
-                }
-                else if (bodyYFlipped)
-                {
-                    float bodyScaleXDifference = body.transform.localScale.x + 1;
-                    float bodyScaleYDifference = body.transform.localScale.y - 1;
-                    if ((body.transform.localScale.x >= -1 - Mathf.Sqrt(1)) && body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
-                    {
-                        body.transform.localScale = new Vector3(-1, 1, body.transform.localScale.z);
-                        body.transform.localPosition += new Vector3(bodyScaleXDifference, bodyScaleYDifference, 0);
-                        headTransform.localPosition = body.transform.localPosition;
-                    }
-                    else if (body.transform.localScale.x >= -1 + Mathf.Sqrt(1))
-                    {
-                        body.transform.localScale = new Vector3(1, body.transform.localScale.y - 1, body.transform.localScale.z);
-                        body.transform.localPosition += new Vector3(bodyScaleXDifference, -0.5f, 0);
-                        headTransform.localPosition += new Vector3(bodyScaleXDifference, -0.5f, 0);
-                    }
-                    else if (body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
-                    {
-                        body.transform.localScale = new Vector3(body.transform.localScale.x + 1, 1, body.transform.localScale.z);
-                        body.transform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
-                        headTransform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
-                    }
-                    else
-                    {
-                        body.transform.localScale += new Vector3(Mathf.Sqrt(1), -Mathf.Sqrt(1), 0);
-                        body.transform.localPosition += (new Vector3(Mathf.Sqrt(1), -Mathf.Sqrt(1), 0)) / 2;
-                        headTransform.localPosition += (new Vector3(Mathf.Sqrt(1), -Mathf.Sqrt(1), 0)) / 2;
-                    }
-                }
-                else
-                {
-                    float bodyScaleXDifference = body.transform.localScale.x + 1;
-                    float bodyScaleYDifference = body.transform.localScale.y + 1;
-                    if ((body.transform.localScale.x >= -1 - Mathf.Sqrt(1)) && body.transform.localScale.y >= -1 - Mathf.Sqrt(1))
-                    {
-                        body.transform.localScale = new Vector3(-1, -1, body.transform.localScale.z);
-                        body.transform.localPosition += new Vector3(bodyScaleXDifference, bodyScaleYDifference, 0);
-                        headTransform.localPosition = body.transform.localPosition;
-                    }
-                    else if (body.transform.localScale.x >= -1 + Mathf.Sqrt(1))
-                    {
-                        body.transform.localScale = new Vector3(1, body.transform.localScale.y + 1, body.transform.localScale.z);
-                        body.transform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
-                        headTransform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
-                    }
-                    else if (body.transform.localScale.y >= -1 + Mathf.Sqrt(1))
-                    {
-                        body.transform.localScale = new Vector3(body.transform.localScale.x + 1, 1, body.transform.localScale.z);
-                        body.transform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
-                        headTransform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
-                    }
-                    else
-                    {
-                        body.transform.localScale += new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0);
-                        body.transform.localPosition += (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
-                        headTransform.localPosition += (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
-                    }
-                }
+            }
+            else
+            {
+                body.transform.localScale = new Vector2(1, 1);
             }
         }
     }
