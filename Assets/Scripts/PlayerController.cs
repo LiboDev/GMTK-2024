@@ -22,6 +22,8 @@ public class PlayerController : MonoBehaviour
     private bool stretched = false;
     private string xStretchDir = "none";
     private string yStretchDir = "none";
+    private bool xStretched = false;
+    private bool yStretched = false;
 
     //Variables relating to the body returning to the head
     Vector2 returnTarget = new Vector2(-1, -1);
@@ -301,7 +303,7 @@ public class PlayerController : MonoBehaviour
         //If the player presses any movement key while not currently stretched, set all the movement stuff in that/those direction(s)
         if (!stretched && (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S)))
         {
-            if (xStretchDir == "none")
+            if (xStretchDir == "none" && !xStretched)
             {
                 if (Input.GetKey(KeyCode.D))
                 {
@@ -318,7 +320,7 @@ public class PlayerController : MonoBehaviour
                 stretching = true;
             }
 
-            if (yStretchDir == "none")
+            if (yStretchDir == "none" && !yStretched)
             {
                 if (Input.GetKey(KeyCode.W))
                 {
@@ -328,6 +330,7 @@ public class PlayerController : MonoBehaviour
                 }
                 if (Input.GetKey(KeyCode.S))
                 {
+                    print("hit");
                     yStretchDir = "down";
                     bodyYFlipped = false;
                     returnTarget = new Vector2(returnTarget.x, -1);
@@ -348,6 +351,7 @@ public class PlayerController : MonoBehaviour
                         if (yStretchDir != "none")
                         {
                             xStretchDir = "none";
+                            xStretched = true;
                         }
                         else
                         {
@@ -361,6 +365,7 @@ public class PlayerController : MonoBehaviour
                         if (yStretchDir != "none")
                         {
                             xStretchDir = "none";
+                            xStretched = true;
                         }
                         else
                         {
@@ -377,6 +382,7 @@ public class PlayerController : MonoBehaviour
                         if (xStretchDir != "none")
                         {
                             yStretchDir = "none";
+                            yStretched = true;
                         }
                         else
                         {
@@ -390,6 +396,7 @@ public class PlayerController : MonoBehaviour
                         if (xStretchDir != "none")
                         {
                             yStretchDir = "none";
+                            yStretched = true;
                         }
                         else
                         {
@@ -564,6 +571,8 @@ public class PlayerController : MonoBehaviour
             bodyReturning = true;
             bodyReturnStartTime = Time.time;
             startBodyScale = body.transform.localScale;
+            xStretched = false;
+            yStretched = false;
         }
     }
 
