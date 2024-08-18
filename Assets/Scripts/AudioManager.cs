@@ -34,6 +34,9 @@ public class AudioManager : MonoBehaviour
         //set value on sliders
         sfxSlider.value = sfxVolume;
         musicSlider.value = musicVolume;
+
+        Debug.Log(sfxVolume);
+        Debug.Log(musicVolume);
     }
 
     //set audio mixer volume
