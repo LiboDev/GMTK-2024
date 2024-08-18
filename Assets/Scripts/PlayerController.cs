@@ -590,120 +590,123 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (bodyXFlipped && bodyYFlipped)
+            if (Mathf.Abs(body.transform.localScale.x) >= 1 && Mathf.Abs(body.transform.localScale.y) >= 1)
             {
-                float bodyScaleXDifference = body.transform.localScale.x - 1;
-                float bodyScaleYDifference = body.transform.localScale.y - 1;
-                if ((body.transform.localScale.x <= 1 + Mathf.Sqrt(1)) && body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
+                if (bodyXFlipped && bodyYFlipped)
                 {
-                    body.transform.localScale = new Vector3(1, 1, body.transform.localScale.z);
-                    body.transform.localPosition -= new Vector3(bodyScaleXDifference, bodyScaleYDifference, 0);
-                    headTransform.localPosition = body.transform.localPosition;
+                    float bodyScaleXDifference = body.transform.localScale.x - 1;
+                    float bodyScaleYDifference = body.transform.localScale.y - 1;
+                    if ((body.transform.localScale.x <= 1 + Mathf.Sqrt(1)) && body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(1, 1, body.transform.localScale.z);
+                        body.transform.localPosition -= new Vector3(bodyScaleXDifference, bodyScaleYDifference, 0);
+                        headTransform.localPosition = body.transform.localPosition;
+                    }
+                    else if (body.transform.localScale.x <= 1 + Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(1, body.transform.localScale.y - 1, body.transform.localScale.z);
+                        body.transform.localPosition -= new Vector3(bodyScaleXDifference, 0.5f, 0);
+                        headTransform.localPosition -= new Vector3(bodyScaleXDifference, 0.5f, 0);
+                    }
+                    else if (body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(body.transform.localScale.x - 1, 1, body.transform.localScale.z);
+                        body.transform.localPosition -= new Vector3(0.5f, bodyScaleYDifference, 0);
+                        headTransform.localPosition -= new Vector3(0.5f, bodyScaleYDifference, 0);
+                    }
+                    else
+                    {
+                        body.transform.localScale -= new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0);
+                        body.transform.localPosition -= (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
+                        headTransform.localPosition -= (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
+                    }
                 }
-                else if (body.transform.localScale.x <= 1 + Mathf.Sqrt(1))
+                else if (bodyXFlipped)
                 {
-                    body.transform.localScale = new Vector3(1, body.transform.localScale.y - 1, body.transform.localScale.z);
-                    body.transform.localPosition -= new Vector3(bodyScaleXDifference, 0.5f, 0);
-                    headTransform.localPosition -= new Vector3(bodyScaleXDifference, 0.5f, 0);
+                    float bodyScaleXDifference = body.transform.localScale.x - 1;
+                    float bodyScaleYDifference = body.transform.localScale.y + 1;
+                    if ((body.transform.localScale.x <= 1 + Mathf.Sqrt(1)) && body.transform.localScale.y >= -1 - Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(1, -1, body.transform.localScale.z);
+                        body.transform.localPosition += new Vector3(bodyScaleXDifference, bodyScaleYDifference, body.transform.localPosition.z);
+                        headTransform.localPosition = body.transform.localPosition;
+                    }
+                    else if (body.transform.localScale.x <= 1 + Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(1, body.transform.localScale.y + 1, body.transform.localScale.z);
+                        body.transform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
+                        headTransform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
+                    }
+                    else if (body.transform.localScale.y >= -1 - Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(body.transform.localScale.x - 1, 1, body.transform.localScale.z);
+                        body.transform.localPosition += new Vector3(-0.5f, bodyScaleYDifference, 0);
+                        headTransform.localPosition += new Vector3(-0.5f, bodyScaleYDifference, 0);
+                    }
+                    else
+                    {
+                        body.transform.localScale += new Vector3(-Mathf.Sqrt(1), Mathf.Sqrt(1), 0);
+                        body.transform.localPosition += (new Vector3(-Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
+                        headTransform.localPosition += (new Vector3(-Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
+                    }
                 }
-                else if (body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
+                else if (bodyYFlipped)
                 {
-                    body.transform.localScale = new Vector3(body.transform.localScale.x - 1, 1, body.transform.localScale.z);
-                    body.transform.localPosition -= new Vector3(0.5f, bodyScaleYDifference, 0);
-                    headTransform.localPosition -= new Vector3(0.5f, bodyScaleYDifference, 0);
+                    float bodyScaleXDifference = body.transform.localScale.x + 1;
+                    float bodyScaleYDifference = body.transform.localScale.y - 1;
+                    if ((body.transform.localScale.x >= -1 - Mathf.Sqrt(1)) && body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(-1, 1, body.transform.localScale.z);
+                        body.transform.localPosition += new Vector3(bodyScaleXDifference, bodyScaleYDifference, 0);
+                        headTransform.localPosition = body.transform.localPosition;
+                    }
+                    else if (body.transform.localScale.x >= -1 + Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(1, body.transform.localScale.y - 1, body.transform.localScale.z);
+                        body.transform.localPosition += new Vector3(bodyScaleXDifference, -0.5f, 0);
+                        headTransform.localPosition += new Vector3(bodyScaleXDifference, -0.5f, 0);
+                    }
+                    else if (body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(body.transform.localScale.x + 1, 1, body.transform.localScale.z);
+                        body.transform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
+                        headTransform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
+                    }
+                    else
+                    {
+                        body.transform.localScale += new Vector3(Mathf.Sqrt(1), -Mathf.Sqrt(1), 0);
+                        body.transform.localPosition += (new Vector3(Mathf.Sqrt(1), -Mathf.Sqrt(1), 0)) / 2;
+                        headTransform.localPosition += (new Vector3(Mathf.Sqrt(1), -Mathf.Sqrt(1), 0)) / 2;
+                    }
                 }
                 else
                 {
-                    body.transform.localScale -= new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0);
-                    body.transform.localPosition -= (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
-                    headTransform.localPosition -= (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
-                }
-            }
-            else if (bodyXFlipped)
-            {
-                float bodyScaleXDifference = body.transform.localScale.x - 1;
-                float bodyScaleYDifference = body.transform.localScale.y + 1;
-                if ((body.transform.localScale.x <= 1 + Mathf.Sqrt(1)) && body.transform.localScale.y >= -1 - Mathf.Sqrt(1))
-                {
-                    body.transform.localScale = new Vector3(1, -1, body.transform.localScale.z);
-                    body.transform.localPosition += new Vector3(bodyScaleXDifference, bodyScaleYDifference, body.transform.localPosition.z);
-                    headTransform.localPosition = body.transform.localPosition;
-                }
-                else if (body.transform.localScale.x <= 1 + Mathf.Sqrt(1))
-                {
-                    body.transform.localScale = new Vector3(1, body.transform.localScale.y + 1, body.transform.localScale.z);
-                    body.transform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
-                    headTransform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
-                }
-                else if (body.transform.localScale.y >= -1 - Mathf.Sqrt(1))
-                {
-                    body.transform.localScale = new Vector3(body.transform.localScale.x - 1, 1, body.transform.localScale.z);
-                    body.transform.localPosition += new Vector3(-0.5f, bodyScaleYDifference, 0);
-                    headTransform.localPosition += new Vector3(-0.5f, bodyScaleYDifference, 0);
-                }
-                else
-                {
-                    body.transform.localScale += new Vector3(-Mathf.Sqrt(1), Mathf.Sqrt(1), 0);
-                    body.transform.localPosition += (new Vector3(-Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
-                    headTransform.localPosition += (new Vector3(-Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
-                }
-            }
-            else if (bodyYFlipped)
-            {
-                float bodyScaleXDifference = body.transform.localScale.x + 1;
-                float bodyScaleYDifference = body.transform.localScale.y - 1;
-                if ((body.transform.localScale.x >= -1 - Mathf.Sqrt(1)) && body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
-                {
-                    body.transform.localScale = new Vector3(-1, 1, body.transform.localScale.z);
-                    body.transform.localPosition += new Vector3(bodyScaleXDifference, bodyScaleYDifference, 0);
-                    headTransform.localPosition = body.transform.localPosition;
-                }
-                else if (body.transform.localScale.x >= -1 + Mathf.Sqrt(1))
-                {
-                    body.transform.localScale = new Vector3(1, body.transform.localScale.y - 1, body.transform.localScale.z);
-                    body.transform.localPosition += new Vector3(bodyScaleXDifference, -0.5f, 0);
-                    headTransform.localPosition += new Vector3(bodyScaleXDifference, -0.5f, 0);
-                }
-                else if (body.transform.localScale.y <= 1 + Mathf.Sqrt(1))
-                {
-                    body.transform.localScale = new Vector3(body.transform.localScale.x + 1, 1, body.transform.localScale.z);
-                    body.transform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
-                    headTransform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
-                }
-                else
-                {
-                    body.transform.localScale += new Vector3(Mathf.Sqrt(1), -Mathf.Sqrt(1), 0);
-                    body.transform.localPosition += (new Vector3(Mathf.Sqrt(1), -Mathf.Sqrt(1), 0)) / 2;
-                    headTransform.localPosition += (new Vector3(Mathf.Sqrt(1), -Mathf.Sqrt(1), 0)) / 2;
-                }
-            }
-            else
-            {
-                float bodyScaleXDifference = body.transform.localScale.x + 1;
-                float bodyScaleYDifference = body.transform.localScale.y + 1;
-                if ((body.transform.localScale.x >= -1 - Mathf.Sqrt(1)) && body.transform.localScale.y >= -1 - Mathf.Sqrt(1))
-                {
-                    body.transform.localScale = new Vector3(-1, -1, body.transform.localScale.z);
-                    body.transform.localPosition += new Vector3(bodyScaleXDifference, bodyScaleYDifference, 0);
-                    headTransform.localPosition = body.transform.localPosition;
-                }
-                else if (body.transform.localScale.x >= -1 + Mathf.Sqrt(1))
-                {
-                    body.transform.localScale = new Vector3(1, body.transform.localScale.y + 1, body.transform.localScale.z);
-                    body.transform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
-                    headTransform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
-                }
-                else if (body.transform.localScale.y >= -1 + Mathf.Sqrt(1))
-                {
-                    body.transform.localScale = new Vector3(body.transform.localScale.x + 1, 1, body.transform.localScale.z);
-                    body.transform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
-                    headTransform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
-                }
-                else
-                {
-                    body.transform.localScale += new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0);
-                    body.transform.localPosition += (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
-                    headTransform.localPosition += (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
+                    float bodyScaleXDifference = body.transform.localScale.x + 1;
+                    float bodyScaleYDifference = body.transform.localScale.y + 1;
+                    if ((body.transform.localScale.x >= -1 - Mathf.Sqrt(1)) && body.transform.localScale.y >= -1 - Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(-1, -1, body.transform.localScale.z);
+                        body.transform.localPosition += new Vector3(bodyScaleXDifference, bodyScaleYDifference, 0);
+                        headTransform.localPosition = body.transform.localPosition;
+                    }
+                    else if (body.transform.localScale.x >= -1 + Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(1, body.transform.localScale.y + 1, body.transform.localScale.z);
+                        body.transform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
+                        headTransform.localPosition += new Vector3(bodyScaleXDifference, 0.5f, 0);
+                    }
+                    else if (body.transform.localScale.y >= -1 + Mathf.Sqrt(1))
+                    {
+                        body.transform.localScale = new Vector3(body.transform.localScale.x + 1, 1, body.transform.localScale.z);
+                        body.transform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
+                        headTransform.localPosition += new Vector3(0.5f, bodyScaleYDifference, 0);
+                    }
+                    else
+                    {
+                        body.transform.localScale += new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0);
+                        body.transform.localPosition += (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
+                        headTransform.localPosition += (new Vector3(Mathf.Sqrt(1), Mathf.Sqrt(1), 0)) / 2;
+                    }
                 }
             }
         }
