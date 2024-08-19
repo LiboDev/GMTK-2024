@@ -81,6 +81,11 @@ public class UpgradeMenu : MonoBehaviour
                     player.speed = player.maxSpeed;
                     return;
                 }
+                player.returnTimeModifier += 0.1f;
+                if (player.returnTimeModifier > player.maxReturnTimeModifier)
+                {
+                    player.returnTimeModifier = player.maxReturnTimeModifier;
+                }
                 transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.speed / player.maxSpeed;
                 break;
         }
