@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
 
     //stats
     [SerializeField] private float playerSize = 25;
+    public int maxSize = 200;
     [SerializeField] public float bulletInterval = 1.5f;
     [SerializeField] public float range = 10f;
     public int maxRange = 100;
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviour
 
     //Objects
     [SerializeField] private Slider gooBar;
+    [SerializeField] private Slider sizeBar;
     [SerializeField] private GameObject upgradePanel;
 
     //audio
@@ -87,6 +89,11 @@ public class PlayerController : MonoBehaviour
         if (gooBar != null)
         {
             gooBar.value = (body.transform.localScale.x * body.transform.localScale.y) / playerSize;
+        }
+
+        if (sizeBar != null)
+        {
+            sizeBar.value = playerSize / maxSize;
         }
 
         body.transform.position = (headTransform.position + startPos) / 2;
