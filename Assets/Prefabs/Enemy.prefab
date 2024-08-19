@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  destruction: {fileID: 6674000813560781546, guid: 0b1572fd6fd89d841a6305d599ddea0d, type: 3}
+  destruction: {fileID: 6674000813560781546, guid: ef8dda787361ca741a89127084537cde, type: 3}
   bulletObject: {fileID: 2994321768068725811, guid: cbe7d8773cea7774c953d09f3e88d1bf, type: 3}
   slimeBall: {fileID: 3220099324099157160, guid: 4b97efa5e5530e54c847721f3b86f8cc, type: 3}
   size: 1
