@@ -113,6 +113,8 @@ public class PlayerController : MonoBehaviour
                 Shoot();
             }
         }
+
+        bodySpriteRenderer.color = new Color(bodySpriteRenderer.color.r, bodySpriteRenderer.color.g, bodySpriteRenderer.color.b, Mathf.Max(0.2f, 1 - ((body.transform.localScale.x * body.transform.localScale.y) / playerSize)));
     }
 
     private void Reload()
