@@ -22,7 +22,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 startPos;
 
     //Variables relating to the body returning to the head
-    [SerializeField] private float returnTimeModifier = 1;
+    [SerializeField] public float returnTimeModifier = 1;
+    public float maxReturnTimeModifier = 2;
 
     //stats
     [SerializeField] private float playerSize = 25;
