@@ -213,4 +213,30 @@ public class EnemyController : MonoBehaviour
 
         Destroy(gameObject);
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Body")
+        {
+            StartCoroutine(InBody());
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.name == "Body")
+        {
+            StopCoroutine(InBody());
+        }
+    }
+
+    private IEnumerator InBody()
+    {
+        while (true)
+        {
+            Damage(1, 0);
+
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
 }
