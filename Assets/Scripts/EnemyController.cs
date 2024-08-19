@@ -103,7 +103,7 @@ public class EnemyController : MonoBehaviour
             if (Vector2.Distance(playerPos, transform.position) < range)
             {
                 PlaySFX("Kiss", 0.05f, 1f);
-                playerController.Damage(1);
+                playerController.Damage(2);
                 size++;
                 range = Mathf.Sqrt(size)/2f;
                 transform.localScale = new Vector3(Mathf.Sqrt(size), Mathf.Sqrt(size), 1);

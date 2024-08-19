@@ -71,13 +71,13 @@ public class EnemySpawner : MonoBehaviour
 
                 if (rand == 0)
                 {
-                    enemyController.SetSize(Random.Range(1,wave));
+                    enemyController.SetSize(wave);
                     enemyController.SetSpeed(5);
                 }
                 else if(rand == 1)
                 {
-                    enemyController.SetSize(Random.Range(1, wave));
-                    enemyController.SetSpeed(5);
+                    enemyController.SetSize(1);
+                    enemyController.SetSpeed(wave);
                 }
                 else if(rand == 2)
                 {
