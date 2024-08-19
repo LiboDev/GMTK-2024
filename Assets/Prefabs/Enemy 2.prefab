@@ -74,11 +74,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 21926163
+  m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 76d33a98552e98f44afb47857768087f, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
   destruction: {fileID: 6674000813560781546, guid: 0b1572fd6fd89d841a6305d599ddea0d, type: 3}
   bulletObject: {fileID: 2994321768068725811, guid: cbe7d8773cea7774c953d09f3e88d1bf, type: 3}
   slimeBall: {fileID: 3220099324099157160, guid: 4b97efa5e5530e54c847721f3b86f8cc, type: 3}
-  size: 0
+  size: 1
   speed: 5
   range: 10
   bulletsPerSecond: 2
@@ -180,7 +180,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
 --- !u!82 &8466378888198750267
 AudioSource:
   m_ObjectHideFlags: 0
