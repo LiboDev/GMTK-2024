@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     //General body variables
     private GameObject body;
     private SpriteRenderer bodySpriteRenderer;
-    private Animation animation;
+    private Animation myAnimation;
 
     //Variables related to the body stretching
     private Vector3 startPos;
@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         playerCamera = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<CinemachineVirtualCamera>();
         body = transform.GetChild(1).gameObject;
         bodySpriteRenderer = body.GetComponent<SpriteRenderer>();
-        animation = body.GetComponent<Animation>();
+        myAnimation = body.GetComponent<Animation>();
 
         startPos = headTransform.position;
 
@@ -385,7 +385,7 @@ public class PlayerController : MonoBehaviour
         PlaySFX("Damage", 0.05f, 1f);
 
         playerSize -= damage;
-        animation.Play("playerHit");
+        myAnimation.Play("playerHit");
 
         if (playerSize <= 0)
         {
@@ -443,7 +443,7 @@ public class PlayerController : MonoBehaviour
     {
         //SFX
         PlaySFX("Grow", 0f, 0.5f);
-        animation.Play("playerGrow");
+        myAnimation.Play("playerGrow");
 
         playerSize += num;
 
