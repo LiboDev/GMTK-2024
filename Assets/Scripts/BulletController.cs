@@ -9,7 +9,7 @@ public class BulletController : MonoBehaviour
     private Rigidbody2D rb;
 
     //tracking
-    private int damage;
+    private float damage;
 
     private Vector2 playerPos;
 
@@ -18,7 +18,7 @@ public class BulletController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Invoke("Death", 10f);
+        Invoke("Break", 10f);
 
         rb = GetComponent<Rigidbody2D>();
 
@@ -28,7 +28,7 @@ public class BulletController : MonoBehaviour
         rb.velocity = transform.right * 10f;
     }
 
-    public void SetDamage(int damage)
+    public void SetDamage(float damage)
     {
         this.damage = damage;
     }
@@ -44,6 +44,11 @@ public class BulletController : MonoBehaviour
             other.gameObject.transform.parent.GetComponent<PlayerController>().Damage(damage);
             Death();
         }
+    }
+
+    private void Break()
+    {
+        Destroy(gameObject);
     }
 
     private void Death()

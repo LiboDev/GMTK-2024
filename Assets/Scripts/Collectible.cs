@@ -21,7 +21,7 @@ public class Collectible : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            other.gameObject.transform.parent.GetComponent<PlayerController>().Grow(1);
+            other.gameObject.transform.parent.GetComponent<PlayerController>().Grow(0.5f);
             Death();
         }
     }

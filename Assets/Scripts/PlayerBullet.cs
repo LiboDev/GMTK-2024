@@ -34,7 +34,7 @@ public class PlayerBullet : MonoBehaviour
 
         if (despawnTimer >= despawnTime)
         {
-            Death();
+            Destroy(this.gameObject);
         }
     }
 

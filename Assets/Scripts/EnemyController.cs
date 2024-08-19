@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private float range = 10f;
     [SerializeField] private float bulletsPerSecond = 1f;
-    [SerializeField] private int bulletDamage = 1;
+    [SerializeField] private float bulletDamage = 1;
 
     //scene
     private Vector3 playerPos;
@@ -70,7 +70,7 @@ public class EnemyController : MonoBehaviour
     {
         this.bulletsPerSecond = bulletsPerSecond;
     }
-    public void SetBulletDamage(int bulletDamage)
+    public void SetBulletDamage(float bulletDamage)
     {
         this.bulletDamage = bulletDamage;
     }

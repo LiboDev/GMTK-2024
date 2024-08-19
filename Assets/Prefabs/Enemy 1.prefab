@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577f8203d13c8634f9f1705325673839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 2
+  type: 1
   destruction: {fileID: 6674000813560781546, guid: 0b1572fd6fd89d841a6305d599ddea0d, type: 3}
   bulletObject: {fileID: 2994321768068725811, guid: cbe7d8773cea7774c953d09f3e88d1bf, type: 3}
   slimeBall: {fileID: 3220099324099157160, guid: 4b97efa5e5530e54c847721f3b86f8cc, type: 3}

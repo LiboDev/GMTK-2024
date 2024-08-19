@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     //General head variables
     private Rigidbody2D headRigidbody2D;
     private Transform headTransform;
+    private Transform brainTransform;
 
     //Head movement variables
     public float speed = 10;
@@ -34,8 +35,8 @@ public class PlayerController : MonoBehaviour
     public int maxDamage = 10;
     [SerializeField] public float bulletKnockback = 0;
     public int maxKnockback = 10;
-    [SerializeField] public int damageReduction;
-    public int maxDamageReduction = 10;
+    [SerializeField] public float damageReduction;
+    public float maxDamageReduction = 0.5f;
     //
     private bool canShoot = true;
     [SerializeField] public int bulletsPerSecond = 1;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
     {
         headRigidbody2D = transform.GetChild(0).GetComponent<Rigidbody2D>();
         headTransform = transform.GetChild(0).GetComponent<Transform>();
+        brainTransform = transform.GetChild(2);
         playerCamera = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<CinemachineVirtualCamera>();
         body = transform.GetChild(1).gameObject;
         bodySpriteRenderer = body.GetComponent<SpriteRenderer>();
@@ -85,7 +87,8 @@ public class PlayerController : MonoBehaviour
         }
 
         body.transform.position = (headTransform.position + startPos) / 2;
-        body.transform.localScale = new Vector3(Mathf.Abs(headTransform.position.x - startPos.x) + 1, Mathf.Abs(headTransform.position.y - startPos.y) + 1, 0);
+        body.transform.localScale = new Vector3(Mathf.Abs(headTransform.position.x - startPos.x) + 2, Mathf.Abs(headTransform.position.y - startPos.y) + 2, 0);
+        brainTransform.position = startPos;
 
         if (canShoot)
         {
@@ -322,13 +325,13 @@ public class PlayerController : MonoBehaviour
                 Vector2 initialPos = startPos;
                 float time = 0;
 
-                while (new Vector2(body.transform.localScale.x, body.transform.localScale.y) != new Vector2(1, 1))
+                while (new Vector2(body.transform.localScale.x, body.transform.localScale.y) != new Vector2(2,2))
                 {
                     startPos = Vector2.Lerp(initialPos, headTransform.position, time);
                     time += Time.deltaTime * returnTimeModifier;
                     yield return null;
                 }
-                body.transform.localScale = new Vector3(1, 1, 0);
+                body.transform.localScale = new Vector3(2, 2, 0);
             }
             yield return null;
         }
@@ -340,9 +343,9 @@ public class PlayerController : MonoBehaviour
         upgradePanel.GetComponent<UpgradeMenu>().SetEnemySpawner(spawner);
     }
 
-    public void Damage(int enemyDamage)
+    public void Damage(float enemyDamage)
     {
-        int damage = enemyDamage - damageReduction;
+        float damage = enemyDamage * damageReduction;
 
         if (damage < 0)
         {
@@ -350,7 +353,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //SFX
-        PlaySFX("Damage", 0.05f, damage/2f);
+        PlaySFX("Damage", 0.05f, 1f);
 
         playerSize -= damage;
 
@@ -406,7 +409,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void Grow(int num)
+    public void Grow(float num)
     {
         //SFX
         PlaySFX("Grow", 0f, 0.5f);

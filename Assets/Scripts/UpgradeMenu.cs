@@ -65,7 +65,7 @@ public class UpgradeMenu : MonoBehaviour
                 break;
 
             case "damageReduction":
-                player.damageReduction++;
+                player.damageReduction+=0.1f;
                 if (player.damageReduction > player.maxDamageReduction)
                 {
                     player.damageReduction = player.maxDamageReduction;

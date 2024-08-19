@@ -83,14 +83,16 @@ public class EnemySpawner : MonoBehaviour
                 {
                     enemyController.SetSize(5);
                     enemyController.SetSpeed(5);
-                    enemyController.SetBulletsPerSecond(wave);
-                    enemyController.SetBulletDamage(1);
+                    enemyController.SetBulletsPerSecond(1);
+                    enemyController.SetBulletDamage(wave/2);
                 }
 
                 yield return new WaitForSeconds(0.1f);
             }
 
             yield return new WaitUntil(() => transform.childCount <= 0);
+
+            wave++;
 
             waveOver.Invoke(gameObject);
 
