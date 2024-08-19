@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     //General body variables
     private GameObject body;
     private SpriteRenderer bodySpriteRenderer;
+    private Animation animation;
 
     //Variables related to the body stretching
     private Vector3 startPos;
@@ -63,9 +64,11 @@ public class PlayerController : MonoBehaviour
         headRigidbody2D = transform.GetChild(0).GetComponent<Rigidbody2D>();
         headTransform = transform.GetChild(0).GetComponent<Transform>();
         brainTransform = transform.GetChild(2);
+
         playerCamera = GameObject.FindGameObjectWithTag("PlayerCamera").GetComponent<CinemachineVirtualCamera>();
         body = transform.GetChild(1).gameObject;
         bodySpriteRenderer = body.GetComponent<SpriteRenderer>();
+        animation = body.GetComponent<Animation>();
 
         startPos = headTransform.position;
 
@@ -350,12 +353,14 @@ public class PlayerController : MonoBehaviour
         if (damage < 0)
         {
             damage = 0;
+            return;
         }
 
         //SFX
         PlaySFX("Damage", 0.05f, 1f);
 
         playerSize -= damage;
+        animation.Play("playerHit");
 
         if (playerSize <= 0)
         {
@@ -413,6 +418,7 @@ public class PlayerController : MonoBehaviour
     {
         //SFX
         PlaySFX("Grow", 0f, 0.5f);
+        animation.Play("playerGrow");
 
         playerSize += num;
 
