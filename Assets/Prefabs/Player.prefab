@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4276978646766413268}
   - component: {fileID: 2237719557253555347}
-  - component: {fileID: 4122789135391628247}
   - component: {fileID: 8824273243114979427}
   - component: {fileID: 8744804713989992529}
   - component: {fileID: 7339284576086916591}
@@ -88,39 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4122789135391628247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4180372953764487350}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0474934fbf85e9b41a8608bd5dc7f2d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  maxSpeed: 100
-  returnTimeModifier: 1
-  maxReturnTimeModifier: 2
-  playerSize: 10
-  bulletInterval: 1.5
-  range: 10
-  maxRange: 100
-  bulletDamage: 1
-  maxDamage: 10
-  bulletKnockback: 0
-  maxKnockback: 10
-  damageReduction: 0
-  maxDamageReduction: 10
-  bulletsPerSecond: 1
-  maxBPS: 10
-  bulletPrefab: {fileID: 3832082420904362824, guid: e418bf758e9569c45aec47d0b457bfaa, type: 3}
-  gooBar: {fileID: 0}
-  upgradePanel: {fileID: 0}
-  sounds: []
-  audioSource: {fileID: 0}
 --- !u!61 &8824273243114979427
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -128,7 +94,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4180372953764487350}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -174,7 +140,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4180372953764487350}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
