@@ -54,6 +54,11 @@ public class EnemyController : MonoBehaviour
         transform.localScale = new Vector3(Mathf.Sqrt(size), Mathf.Sqrt(size), 1);
     }
 
+    private void Update()
+    {
+        transform.rotation = Quaternion.LookRotation(Vector3.forward, (transform.position - playerPos).normalized);
+    }
+
     public void SetSize(int size)
     {
         this.size = size;
