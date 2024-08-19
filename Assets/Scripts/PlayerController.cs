@@ -97,23 +97,23 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.UpArrow))
             {
-                FireUp();
                 Shoot();
+                FireUp();
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
-                FireDown();
                 Shoot();
+                FireDown();
             }
             else if (Input.GetKey(KeyCode.RightArrow))
             {
-                FireRight();
                 Shoot();
+                FireRight();
             }
             else if (Input.GetKey(KeyCode.LeftArrow))
             {
-                FireLeft();
                 Shoot();
+                FireLeft();
             }
         }
 
@@ -138,7 +138,9 @@ public class PlayerController : MonoBehaviour
     private void FireUp()
     {
         Vector2 bulletPos = headTransform.position;
-        if ((int)(body.transform.localScale.x / bulletInterval) == 0)
+        int numberOfBullets = (int) (body.transform.localScale.x / bulletInterval);
+
+        if (numberOfBullets == 0 || numberOfBullets == 1)
         {
             if (headTransform.position.y > startPos.y)
             {
@@ -153,15 +155,18 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < (int)(body.transform.localScale.x / bulletInterval); i++)
+            float bulletLength = (numberOfBullets * bulletInterval);
+            float remainder = body.transform.localScale.x - bulletLength;
+
+            for (int i = 0; i < numberOfBullets; i++)
             {
                 if (headTransform.position.x > startPos.x)
                 {
-                    bulletPos = new Vector2(headTransform.position.x - (bulletInterval * i), bulletPos.y);
+                    bulletPos = new Vector2(headTransform.position.x - (bulletInterval * i) - (remainder / 2), bulletPos.y);
                 }
                 else
                 {
-                    bulletPos = new Vector2(headTransform.position.x + (bulletInterval * i), bulletPos.y);
+                    bulletPos = new Vector2(headTransform.position.x + (bulletInterval * i) + (remainder / 2), bulletPos.y);
                 }
                 if (headTransform.position.y > startPos.y)
                 {
@@ -171,6 +176,7 @@ public class PlayerController : MonoBehaviour
                 {
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y + body.transform.localScale.y);
                 }
+
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, 1)));
                 temp.GetComponent<PlayerBullet>().Initialize(Vector2.up, bulletDamage, bulletKnockback, range);
             }
@@ -180,7 +186,9 @@ public class PlayerController : MonoBehaviour
     private void FireDown()
     {
         Vector2 bulletPos = headTransform.position;
-        if ((int)(body.transform.localScale.x / bulletInterval) == 0)
+        int numberOfBullets = (int) (body.transform.localScale.x / bulletInterval);
+
+        if (numberOfBullets == 0 || numberOfBullets == 1)
         {
             if (headTransform.position.y > startPos.y)
             {
@@ -195,15 +203,18 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < Mathf.Abs((int)(body.transform.localScale.x / bulletInterval)); i++)
+            float bulletLength = numberOfBullets * bulletInterval;
+            float remainder = body.transform.localScale.x - bulletLength;
+
+            for (int i = 0; i < numberOfBullets; i++)
             {
                 if (headTransform.position.x > startPos.x)
                 {
-                    bulletPos = new Vector2(headTransform.position.x - (bulletInterval * i), bulletPos.y);
+                    bulletPos = new Vector2(headTransform.position.x - (bulletInterval * i) - (remainder / 2), bulletPos.y);
                 }
                 else
                 {
-                    bulletPos = new Vector2(headTransform.position.x + (bulletInterval * i), bulletPos.y);
+                    bulletPos = new Vector2(headTransform.position.x + (bulletInterval * i) + (remainder / 2), bulletPos.y);
                 }
                 if (headTransform.position.y > startPos.y)
                 {
@@ -213,6 +224,7 @@ public class PlayerController : MonoBehaviour
                 {
                     bulletPos = new Vector2(bulletPos.x, headTransform.position.y - 1);
                 }
+
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(new Vector3(0, 0, -1)));
                 temp.GetComponent<PlayerBullet>().Initialize(Vector2.down, bulletDamage, bulletKnockback, range);
             }
@@ -222,7 +234,9 @@ public class PlayerController : MonoBehaviour
     private void FireRight()
     {
         Vector2 bulletPos = headTransform.position;
-        if ((int)(body.transform.localScale.y / bulletInterval) == 0)
+        int numberOfBullets = (int) (body.transform.localScale.y / bulletInterval);
+
+        if (numberOfBullets == 0 || numberOfBullets == 1)
         {
             if (headTransform.position.x > startPos.x)
             {
@@ -237,7 +251,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < Mathf.Abs((int)(body.transform.localScale.y / bulletInterval)); i++)
+            float bulletLength = numberOfBullets * bulletInterval;
+            float remainder = body.transform.localScale.y - bulletLength;
+
+            for (int i = 0; i < numberOfBullets; i++)
             {
                 if (headTransform.position.x > startPos.x)
                 {
@@ -249,12 +266,13 @@ public class PlayerController : MonoBehaviour
                 }
                 if (headTransform.position.y > startPos.y)
                 {
-                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y - (bulletInterval * i));
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y - (bulletInterval * i) - (remainder / 2));
                 }
                 else
                 {
-                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y + (bulletInterval * i));
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y + (bulletInterval * i) + (remainder / 2));
                 }
+
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.right));
                 temp.GetComponent<PlayerBullet>().Initialize(Vector2.right, bulletDamage, bulletKnockback, range);
             }
@@ -264,7 +282,9 @@ public class PlayerController : MonoBehaviour
     private void FireLeft()
     {
         Vector2 bulletPos = headTransform.position;
-        if ((int)(body.transform.localScale.y / bulletInterval) == 0)
+        int numberOfBullets = (int)(body.transform.localScale.y / bulletInterval);
+
+        if (numberOfBullets == 0 || numberOfBullets == 1)
         {
             if (headTransform.position.x > startPos.x)
             {
@@ -279,7 +299,10 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < Mathf.Abs((int)(body.transform.localScale.y / bulletInterval)); i++)
+            float bulletLength = numberOfBullets * bulletInterval;
+            float remainder = body.transform.localScale.y - bulletLength;
+
+            for (int i = 0; i < numberOfBullets; i++)
             {
                 if (headTransform.position.x > startPos.x)
                 {
@@ -291,11 +314,11 @@ public class PlayerController : MonoBehaviour
                 }
                 if (headTransform.position.y > startPos.y)
                 {
-                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y - (bulletInterval * i));
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y - (bulletInterval * i) - (remainder / 2));
                 }
                 else
                 {
-                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y + (bulletInterval * i));
+                    bulletPos = new Vector2(bulletPos.x, headTransform.position.y + (bulletInterval * i) + (remainder / 2));
                 }
                 GameObject temp = Instantiate(bulletPrefab, bulletPos, Quaternion.LookRotation(Vector3.forward, Vector3.left));
                 temp.GetComponent<PlayerBullet>().Initialize(Vector2.left, bulletDamage, bulletKnockback, range);
