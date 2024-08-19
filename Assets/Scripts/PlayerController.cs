@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     //Head movement variables
     public float speed = 10;
+    public float maxSpeed = 100;
 
     //General body variables
     private GameObject body;
@@ -24,15 +25,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float returnTimeModifier = 1;
 
     //stats
-    [SerializeField] private int playerSize = 25;
+    [SerializeField] private float playerSize = 25;
     [SerializeField] public float bulletInterval = 1.5f;
     [SerializeField] public float range = 10f;
+    public int maxRange = 100;
     [SerializeField] public int bulletDamage = 1;
+    public int maxDamage = 10;
     [SerializeField] public float bulletKnockback = 0;
+    public int maxKnockback = 10;
     [SerializeField] public int damageReduction;
+    public int maxDamageReduction = 10;
     //
     private bool canShoot = true;
     [SerializeField] public int bulletsPerSecond = 1;
+    public int maxBPS = 10;
 
     //Prefabs
     [SerializeField] private GameObject bulletPrefab;
@@ -112,6 +118,8 @@ public class PlayerController : MonoBehaviour
 
     private void Shoot()
     {
+        playerSize -= 0.1f;
+        ShrinkPlayer(0.1f);
         canShoot = false;
         Invoke("Reload", 1f / bulletsPerSecond);
 
@@ -352,43 +360,47 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (Mathf.Abs(body.transform.localScale.x) >= 1 && Mathf.Abs(body.transform.localScale.y) >= 1)
+            ShrinkPlayer(damage);
+        }
+    }
+
+    private void ShrinkPlayer(float damage)
+    {
+        if (Mathf.Abs(body.transform.localScale.x) >= 1 && Mathf.Abs(body.transform.localScale.y) >= 1)
+        {
+            if ((Mathf.Abs(body.transform.localScale.x) * Mathf.Abs(body.transform.localScale.y)) >= playerSize)
             {
-                if ((Mathf.Abs(body.transform.localScale.x) * Mathf.Abs(body.transform.localScale.y)) >= playerSize)
+                float sizeMod = playerSize / (playerSize + damage);
+                print("Size: " + playerSize + "\nDamage: " + damage + "\nSize + Damage: " + (playerSize + damage) + "\nMod: " + sizeMod);
+                print("Pre-mod: " + headTransform.position);
+                Vector2 headPos = headTransform.position;
+                Vector2 absStartPos = new Vector2(Mathf.Abs(startPos.x), Mathf.Abs(startPos.y));
+                if (Mathf.Abs(headPos.x * sizeMod - startPos.x) >= 1 && Mathf.Abs(headPos.y * sizeMod - startPos.y) >= 1)
                 {
-                    float moddedSize = playerSize + damage;
-                    float sizeMod = playerSize / moddedSize;
-                    print("Size: " + playerSize + "\nDamage: " + damage + "\nSize + Damage: " + (playerSize + damage) + "\nCalculation: " + (playerSize / moddedSize) + "\nMod: " + sizeMod);
-                    print("Pre-mod: " + headTransform.position);
-                    Vector2 headPos = headTransform.position;
-                    Vector2 absStartPos = new Vector2(Mathf.Abs(startPos.x), Mathf.Abs(startPos.y));
-                    if (Mathf.Abs(headPos.x * sizeMod - startPos.x) >= 1 && Mathf.Abs(headPos.y * sizeMod - startPos.y) >= 1)
-                    {
-                        print("Normal change");
-                        headTransform.position = (headTransform.position - startPos) * sizeMod + startPos;
-                    }
-                    else if (Mathf.Abs(headPos.x * sizeMod - startPos.x) >= 1)
-                    {
-                        print("Y is too small");
-                        headTransform.position = new Vector2((headTransform.position.x - startPos.x) * sizeMod + startPos.x, startPos.y);
-                    }
-                    else if (Mathf.Abs(headPos.y * sizeMod - startPos.y) >= 1)
-                    {
-                        print("X is too small");
-                        headTransform.position = new Vector2(startPos.x, (headTransform.position.y - startPos.y) * sizeMod + startPos.y);
-                    }
-                    else
-                    {
-                        print("X & Y are too small");
-                        headTransform.position = startPos;
-                    }
-                    print("Post-mod: " + headTransform.position);
+                    print("Normal change");
+                    headTransform.position = (headTransform.position - startPos) * sizeMod + startPos;
                 }
+                else if (Mathf.Abs(headPos.x * sizeMod - startPos.x) >= 1)
+                {
+                    print("Y is too small");
+                    headTransform.position = new Vector2((headTransform.position.x - startPos.x) * sizeMod + startPos.x, startPos.y);
+                }
+                else if (Mathf.Abs(headPos.y * sizeMod - startPos.y) >= 1)
+                {
+                    print("X is too small");
+                    headTransform.position = new Vector2(startPos.x, (headTransform.position.y - startPos.y) * sizeMod + startPos.y);
+                }
+                else
+                {
+                    print("X & Y are too small");
+                    headTransform.position = startPos;
+                }
+                print("Post-mod: " + headTransform.position);
             }
-            else
-            {
-                body.transform.localScale = new Vector2(1, 1);
-            }
+        }
+        else
+        {
+            body.transform.localScale = new Vector2(1, 1);
         }
     }
 

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UpgradeMenu : MonoBehaviour
 {
@@ -25,26 +26,62 @@ public class UpgradeMenu : MonoBehaviour
         {
             case "damage":
                 player.bulletDamage++;
+                if (player.bulletDamage > player.maxDamage)
+                {
+                    player.bulletDamage = player.maxDamage;
+                    return;
+                }
+                transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletDamage / player.maxDamage;
                 break;
 
             case "fireRate":
                 player.bulletsPerSecond++;
+                if (player.bulletsPerSecond > player.maxBPS)
+                {
+                    player.bulletsPerSecond = player.maxBPS;
+                    return;
+                }
+                transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletsPerSecond / player.maxBPS;
                 break;
 
             case "knockback":
                 player.bulletKnockback++;
+                if (player.bulletKnockback > player.maxKnockback)
+                {
+                    player.bulletKnockback = player.maxKnockback;
+                    return;
+                }
+                transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletKnockback / player.maxKnockback;
                 break;
 
             case "range":
                 player.range++;
+                if (player.range > player.maxRange)
+                {
+                    player.range = player.maxRange;
+                    return;
+                }
+                transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.range / player.maxRange;
                 break;
 
             case "damageReduction":
                 player.damageReduction++;
+                if (player.damageReduction > player.maxDamageReduction)
+                {
+                    player.damageReduction = player.maxDamageReduction;
+                    return;
+                }
+                transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.damageReduction / player.maxDamageReduction;
                 break;
 
             case "speed":
                 player.speed++;
+                if (player.speed > player.maxSpeed)
+                {
+                    player.speed = player.maxSpeed;
+                    return;
+                }
+                transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.speed / player.maxSpeed;
                 break;
         }
 
