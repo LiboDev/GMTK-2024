@@ -100,15 +100,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0474934fbf85e9b41a8608bd5dc7f2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
+  maxSpeed: 100
   returnTimeModifier: 1
   playerSize: 10
   bulletInterval: 1.5
   range: 10
+  maxRange: 100
   bulletDamage: 1
+  maxDamage: 10
   bulletKnockback: 0
+  maxKnockback: 10
+  damageReduction: 0
+  maxDamageReduction: 10
   bulletsPerSecond: 1
-  bulletPrefab: {fileID: 0}
+  maxBPS: 10
+  bulletPrefab: {fileID: 3832082420904362824, guid: e418bf758e9569c45aec47d0b457bfaa, type: 3}
   gooBar: {fileID: 0}
+  upgradePanel: {fileID: 0}
   sounds: []
   audioSource: {fileID: 0}
 --- !u!61 &8824273243114979427
@@ -411,15 +420,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0474934fbf85e9b41a8608bd5dc7f2d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 10
+  maxSpeed: 100
   returnTimeModifier: 2
   playerSize: 35
   bulletInterval: 1
   range: 2
+  maxRange: 100
   bulletDamage: 1
+  maxDamage: 10
   bulletKnockback: 1
+  maxKnockback: 10
+  damageReduction: 0
+  maxDamageReduction: 10
   bulletsPerSecond: 5
+  maxBPS: 10
   bulletPrefab: {fileID: 3832082420904362824, guid: e418bf758e9569c45aec47d0b457bfaa, type: 3}
   gooBar: {fileID: 0}
+  upgradePanel: {fileID: 0}
   sounds:
   - name: Damage
     clip: {fileID: 8300000, guid: a33529765328784428339155d38923d1, type: 3}
