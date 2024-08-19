@@ -103,6 +103,7 @@ MonoBehaviour:
   speed: 10
   maxSpeed: 100
   returnTimeModifier: 1
+  maxReturnTimeModifier: 2
   playerSize: 10
   bulletInterval: 1.5
   range: 10
@@ -423,6 +424,7 @@ MonoBehaviour:
   speed: 10
   maxSpeed: 100
   returnTimeModifier: 2
+  maxReturnTimeModifier: 2
   playerSize: 35
   bulletInterval: 1
   range: 2
@@ -432,7 +434,7 @@ MonoBehaviour:
   bulletKnockback: 1
   maxKnockback: 10
   damageReduction: 0
-  maxDamageReduction: 10
+  maxDamageReduction: 0.5
   bulletsPerSecond: 5
   maxBPS: 10
   bulletPrefab: {fileID: 3832082420904362824, guid: e418bf758e9569c45aec47d0b457bfaa, type: 3}

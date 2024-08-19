@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     public int maxDamage = 10;
     [SerializeField] public float bulletKnockback = 0;
     public int maxKnockback = 10;
-    [SerializeField] public float damageReduction;
+    [SerializeField] public float damageReduction = 0;
     public float maxDamageReduction = 0.5f;
     //
     private bool canShoot = true;

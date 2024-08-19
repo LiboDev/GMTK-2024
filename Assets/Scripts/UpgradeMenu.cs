@@ -31,7 +31,7 @@ public class UpgradeMenu : MonoBehaviour
                     player.bulletDamage = player.maxDamage;
                     return;
                 }
-                transform.GetChild(0).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletDamage / player.maxDamage;
+                transform.GetChild(0).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletDamage / player.maxDamage;
                 break;
 
             case "fireRate":
@@ -41,7 +41,7 @@ public class UpgradeMenu : MonoBehaviour
                     player.bulletsPerSecond = player.maxBPS;
                     return;
                 }
-                transform.GetChild(1).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletsPerSecond / player.maxBPS;
+                transform.GetChild(1).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletsPerSecond / player.maxBPS;
                 break;
 
             case "knockback":
@@ -51,7 +51,7 @@ public class UpgradeMenu : MonoBehaviour
                     player.bulletKnockback = player.maxKnockback;
                     return;
                 }
-                transform.GetChild(2).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletKnockback / player.maxKnockback;
+                transform.GetChild(2).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletKnockback / player.maxKnockback;
                 break;
 
             case "range":
@@ -61,7 +61,7 @@ public class UpgradeMenu : MonoBehaviour
                     player.range = player.maxRange;
                     return;
                 }
-                transform.GetChild(3).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.range / player.maxRange;
+                transform.GetChild(3).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.range / player.maxRange;
                 break;
 
             case "damageReduction":
@@ -71,7 +71,8 @@ public class UpgradeMenu : MonoBehaviour
                     player.damageReduction = player.maxDamageReduction;
                     return;
                 }
-                transform.GetChild(4).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.damageReduction / player.maxDamageReduction;
+                print("Damage Reduction: " + player.damageReduction + "\nMax Damage Reduction: " + player.maxDamageReduction + "\nPercent of max the player has: " + (player.damageReduction / player.maxDamageReduction));
+                transform.GetChild(4).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.damageReduction / player.maxDamageReduction;
                 break;
 
             case "speed":
@@ -86,7 +87,7 @@ public class UpgradeMenu : MonoBehaviour
                 {
                     player.returnTimeModifier = player.maxReturnTimeModifier;
                 }
-                transform.GetChild(5).transform.GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.speed / player.maxSpeed;
+                transform.GetChild(5).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.speed / player.maxSpeed;
                 break;
         }
 
