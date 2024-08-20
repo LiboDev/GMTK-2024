@@ -201,7 +201,7 @@ public class PlayerController : MonoBehaviour
         {
             if (headTransform.position.y > startPos.y)
             {
-                bulletPos = new Vector2(bulletPos.x, headTransform.position.y + body.transform.localScale.y);
+                bulletPos = new Vector2(bulletPos.x, headTransform.position.y - body.transform.localScale.y);
             }
             else
             {
