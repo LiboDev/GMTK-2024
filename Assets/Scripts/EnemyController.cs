@@ -222,15 +222,16 @@ public class EnemyController : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Body")
         {
+            print("Enemy in body");
             StartCoroutine(InBody());
         }
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Body")
         {
@@ -242,9 +243,9 @@ public class EnemyController : MonoBehaviour
     {
         while (true)
         {
-            Damage(1, 0);
+            yield return new WaitForSeconds(1f);
 
-            yield return new WaitForSeconds(0.5f);
+            Damage(1, 0);
         }
     }
 }

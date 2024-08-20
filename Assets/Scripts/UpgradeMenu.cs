@@ -44,16 +44,6 @@ public class UpgradeMenu : MonoBehaviour
                 transform.GetChild(1).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletsPerSecond / player.maxBPS;
                 break;
 
-            case "knockback":
-                player.bulletKnockback++;
-                if (player.bulletKnockback > player.maxKnockback)
-                {
-                    player.bulletKnockback = player.maxKnockback;
-                    return;
-                }
-                transform.GetChild(2).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletKnockback / player.maxKnockback;
-                break;
-
             case "range":
                 player.range++;
                 if (player.range > player.maxRange)
@@ -61,7 +51,7 @@ public class UpgradeMenu : MonoBehaviour
                     player.range = player.maxRange;
                     return;
                 }
-                transform.GetChild(3).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.range / player.maxRange;
+                transform.GetChild(2).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.range / player.maxRange;
                 break;
 
             case "damageReduction":
@@ -72,7 +62,7 @@ public class UpgradeMenu : MonoBehaviour
                     return;
                 }
                 print("Damage Reduction: " + player.damageReduction + "\nMax Damage Reduction: " + player.maxDamageReduction + "\nPercent of max the player has: " + (player.damageReduction / player.maxDamageReduction));
-                transform.GetChild(4).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.damageReduction / player.maxDamageReduction;
+                transform.GetChild(3).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.damageReduction / player.maxDamageReduction;
                 break;
 
             case "speed":
@@ -87,8 +77,20 @@ public class UpgradeMenu : MonoBehaviour
                 {
                     player.returnTimeModifier = player.maxReturnTimeModifier;
                 }
-                transform.GetChild(5).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.speed / player.maxSpeed;
+                print(transform.GetChild(4));
+                transform.GetChild(4).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.speed / player.maxSpeed;
                 break;
+
+            case "knockback":
+                player.bulletKnockback++;
+                if (player.bulletKnockback > player.maxKnockback)
+                {
+                    player.bulletKnockback = player.maxKnockback;
+                    return;
+                }
+                transform.GetChild(5).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.bulletKnockback / player.maxKnockback;
+                break;
+
         }
 
         gameObject.SetActive(false);
