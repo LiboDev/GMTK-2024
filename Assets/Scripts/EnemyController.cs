@@ -166,7 +166,14 @@ public class EnemyController : MonoBehaviour
         {
             size = 0;
             var tempBall = Instantiate(slimeBall, transform.position, Quaternion.identity);
-            tempBall.GetComponent<Collectible>().Initialize(transform.GetComponentInParent<EnemySpawner>().GetWaveOverEvent());
+            if (transform.GetComponentInParent<EnemySpawner>() != null)
+            {
+                tempBall.GetComponent<Collectible>().Initialize(transform.GetComponentInParent<EnemySpawner>().GetWaveOverEvent());
+            }
+            else
+            {
+                Debug.LogWarning("No Enemy Spawner Found");
+            }
             Death();
         }
         else
@@ -177,7 +184,14 @@ public class EnemyController : MonoBehaviour
             for (int i = 0; i < Random.Range(1, damage); i++)
             {
                 var tempBall = Instantiate(slimeBall, transform.position, Quaternion.identity);
-                tempBall.GetComponent<Collectible>().Initialize(transform.GetComponentInParent<EnemySpawner>().GetWaveOverEvent());
+                if (transform.GetComponentInParent<EnemySpawner>() != null)
+                {
+                    tempBall.GetComponent<Collectible>().Initialize(transform.GetComponentInParent<EnemySpawner>().GetWaveOverEvent());
+                }
+                else
+                {
+                    Debug.LogWarning("No Enemy Spawner Found");
+                }
             }
 
             if(type != 2)

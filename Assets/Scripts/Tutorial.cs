@@ -9,7 +9,7 @@ public class Tutorial : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
+            SceneManager.LoadScene(1);
         }
     }
 }

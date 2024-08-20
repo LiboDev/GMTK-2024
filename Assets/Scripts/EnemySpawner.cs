@@ -124,6 +124,6 @@ public class EnemySpawner : MonoBehaviour
 
     public void GameOver(bool win)
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(2);
     }
 }

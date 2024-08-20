@@ -59,6 +59,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Sound[] sounds;
     [SerializeField] private AudioSource audioSource;
 
+    //Panic Patch Variables
+    [SerializeField] private bool inTutorial;
+
 
     // Start is called before the first frame update
     void Start()
@@ -351,7 +354,7 @@ public class PlayerController : MonoBehaviour
                     if (!((Mathf.Abs(body.transform.localScale.x) * Mathf.Abs(body.transform.localScale.y)) >= playerSize) || Mathf.Abs(headTransform.position.x - startPos.x) > Mathf.Abs(headTransform.position.x - startPos.x + movementVector.x) || Mathf.Abs(headTransform.position.y - startPos.y) > Mathf.Abs(headTransform.position.y - startPos.y + movementVector.y))
                     {
                         Vector3 posChange = movementVector * Time.deltaTime * speed;
-                        if (!((headTransform.position.y + posChange.y > 65) || (headTransform.position.y + posChange.y < -79.5) || (headTransform.position.x + posChange.x > 115.5) || (headTransform.position.x + posChange.x < -213.5)))
+                        if (inTutorial || !((headTransform.position.y + posChange.y > 65) || (headTransform.position.y + posChange.y < -79.5) || (headTransform.position.x + posChange.x > 115.5) || (headTransform.position.x + posChange.x < -213.5)))
                         {
                             headTransform.position += posChange;
                         }

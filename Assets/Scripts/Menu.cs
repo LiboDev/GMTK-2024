@@ -24,7 +24,12 @@ public class Menu : MonoBehaviour
 
     public void Tutorial()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 3);
+    }
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene(0);
     }
 
     public void Quit()
@@ -90,6 +95,17 @@ public class Menu : MonoBehaviour
                 PlayerPrefs.SetFloat("highScore", PlayerPrefs.GetFloat("score", 0));
             }
             gameOverInfo.text = "Wave: " + PlayerPrefs.GetInt("score", 0) + "\nEnemies Defeated: " + PlayerPrefs.GetInt("enemiesDefeated", 0) + "\nTop Mass: " + PlayerPrefs.GetFloat("sizeScore", 0);
+        }
+    }
+
+    private void Update()
+    {
+        if (!gameOverScreen)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Quit();
+            }
         }
     }
 }
