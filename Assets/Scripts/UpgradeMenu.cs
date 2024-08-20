@@ -8,6 +8,8 @@ public class UpgradeMenu : MonoBehaviour
     private EnemySpawner enemySpawner;
     [SerializeField] private PlayerController player;
 
+    [SerializeField] private GameObject panel;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,6 +93,8 @@ public class UpgradeMenu : MonoBehaviour
                 break;
 
         }
+
+        panel.SetActive(false);
 
         gameObject.SetActive(false);
         enemySpawner.waveStart = true;

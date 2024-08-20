@@ -5344,13 +5344,13 @@ RectTransform:
   m_Children:
   - {fileID: 429245521}
   - {fileID: 992692393}
+  - {fileID: 597029272}
   - {fileID: 4807336208343100800}
   - {fileID: 4807336208376750783}
   - {fileID: 4807336208198318332}
   - {fileID: 4807336209776407289}
   - {fileID: 779792005}
   - {fileID: 1242527186}
-  - {fileID: 597029272}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -5370,6 +5370,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee040ea4f562cf546ab20e717cfa1b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverScreen: 0
+  gameOverInfo: {fileID: 0}
   resolutionDropdown: {fileID: 4807336209109137559}
 --- !u!4 &4530351528543898889
 Transform:

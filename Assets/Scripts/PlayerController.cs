@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Slider gooBar;
     [SerializeField] private Slider sizeBar;
     [SerializeField] private GameObject upgradePanel;
+    [SerializeField] private GameObject shadowPanel;
 
     //audio
     [SerializeField] private Sound[] sounds;
@@ -384,6 +385,7 @@ public class PlayerController : MonoBehaviour
     public void StartUpgrade(GameObject spawner)
     {
         upgradePanel.SetActive(true);
+        shadowPanel.SetActive(true);
         upgradePanel.GetComponent<UpgradeMenu>().SetEnemySpawner(spawner);
     }
 
