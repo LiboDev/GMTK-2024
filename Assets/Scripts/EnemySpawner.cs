@@ -64,7 +64,7 @@ public class EnemySpawner : MonoBehaviour
     {
         while (true)
         {
-            for(int i = 0; i < wave * 10; i++)
+            for(int i = 0; i < wave * 5; i++)
             {
                 int rand = Random.Range(0, enemies.Length);
 
@@ -99,11 +99,11 @@ public class EnemySpawner : MonoBehaviour
 
             yield return new WaitUntil(() => transform.childCount <= 0);
 
-            if (wave == 10)
+/*            if (wave == 10)
             {
                 GameOver(true);
                 break;
-            }
+            }*/
 
             wave++;
 
