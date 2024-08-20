@@ -102,6 +102,8 @@ public class EnemySpawner : MonoBehaviour
 
             wave++;
 
+            PlayerPrefs.SetInt("score", wave);
+
             waveOver.Invoke(gameObject);
 
             waveStart = false;

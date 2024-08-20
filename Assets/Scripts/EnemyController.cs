@@ -219,6 +219,8 @@ public class EnemyController : MonoBehaviour
         //SFX
         Instantiate(destruction, transform.position, Quaternion.identity);
 
+        PlayerPrefs.SetInt("enemiesDefeated", PlayerPrefs.GetInt("enemiesDefeated", 0) + 1);
+
         Destroy(gameObject);
     }
 

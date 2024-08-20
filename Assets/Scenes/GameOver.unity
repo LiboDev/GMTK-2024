@@ -1149,6 +1149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee040ea4f562cf546ab20e717cfa1b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameOverScreen: 1
+  gameOverInfo: {fileID: 230004936}
   resolutionDropdown: {fileID: 0}
 --- !u!1 &1659568128
 GameObject:

@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour
 
         startPos = headTransform.position;
 
+        PlayerPrefs.SetFloat("sizeScore", playerSize);
+
         StartCoroutine(Stretch());
     }
 
@@ -461,6 +463,12 @@ public class PlayerController : MonoBehaviour
         myAnimation.Play("playerGrow");
 
         playerSize += num;
+
+        if (playerSize > PlayerPrefs.GetFloat("sizeScore", 0))
+        {
+            int temp = (int) (playerSize * 100);
+            PlayerPrefs.SetFloat("sizeScore", temp / 100f);
+        }
 
         if(playerSize >= 100)
         {
