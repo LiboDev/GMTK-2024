@@ -21,7 +21,7 @@ public class EnemyController : MonoBehaviour
     private Vector3 playerPos;
     private PlayerController playerController;
     private BoxCollider2D playerCollider;
-    private Animation animation;
+    private Animation enemyAnimation;
 
     private Rigidbody2D rb;
 
@@ -37,7 +37,7 @@ public class EnemyController : MonoBehaviour
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
         playerCollider = GameObject.Find("Player/Body").GetComponent<BoxCollider2D>();
 
-        animation = GetComponent<Animation>();
+        enemyAnimation = GetComponent<Animation>();
 
         if (type == 0)
         {
@@ -179,7 +179,7 @@ public class EnemyController : MonoBehaviour
         else
         {
             PlaySFX("Slap", 0.05f, 1f);
-            animation.Play();
+            enemyAnimation.Play();
 
             for (int i = 0; i < Random.Range(1, damage); i++)
             {
