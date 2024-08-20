@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Events;
 
 public class EnemySpawner : MonoBehaviour
@@ -92,6 +93,12 @@ public class EnemySpawner : MonoBehaviour
 
             yield return new WaitUntil(() => transform.childCount <= 0);
 
+            if (wave == 10)
+            {
+                GameOver(true);
+                break;
+            }
+
             wave++;
 
             waveOver.Invoke(gameObject);
@@ -105,5 +112,10 @@ public class EnemySpawner : MonoBehaviour
             yield return null;
         }
 
+    }
+
+    public void GameOver(bool win)
+    {
+        SceneManager.LoadScene(0);
     }
 }

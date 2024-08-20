@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        bodySpriteRenderer.color = new Color(bodySpriteRenderer.color.r, bodySpriteRenderer.color.g, bodySpriteRenderer.color.b, Mathf.Max(0.2f, 1 - ((body.transform.localScale.x * body.transform.localScale.y) / playerSize)));
+        bodySpriteRenderer.color = new Color(bodySpriteRenderer.color.r, bodySpriteRenderer.color.g, bodySpriteRenderer.color.b, Mathf.Clamp(1 - ((body.transform.localScale.x * body.transform.localScale.y) / playerSize), 0.2f, 0.9f));
     }
 
     private void Reload()
@@ -394,11 +394,15 @@ public class PlayerController : MonoBehaviour
         playerSize -= damage;
         myAnimation.Play("playerHit");
 
-        if (playerSize <= 0)
+        if (playerSize <= 4)
         {
-            playerSize = 0;
+            playerSize = 4;
 
             Debug.Log("GameOver");
+
+            GameObject.Find("EnemySpawner").GetComponent<EnemySpawner>().GameOver(false);
+
+            enabled = false;
         }
         else
         {
