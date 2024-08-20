@@ -96,7 +96,7 @@ public class EnemyController : MonoBehaviour
                 {
                     //SFX
                     PlaySFX("Explode", 0.05f, 1f);
-                    playerController.Damage(5*size);
+                    playerController.Damage(2*size);
                     Death();
                 }
             }
@@ -111,8 +111,8 @@ public class EnemyController : MonoBehaviour
             if (Vector2.Distance(playerPos, transform.position) < range)
             {
                 PlaySFX("Kiss", 0.05f, 1f);
-                playerController.Damage(2);
-                size++;
+                playerController.Damage(bulletDamage);
+                size+=1;
                 range = Mathf.Sqrt(size)/2f;
                 transform.localScale = new Vector3(Mathf.Sqrt(size), Mathf.Sqrt(size), 1);
 
