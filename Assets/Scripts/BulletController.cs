@@ -41,6 +41,7 @@ public class BulletController : MonoBehaviour
     {
         if(other.gameObject.tag == "Player")
         {
+            print("Enemy hit player");
             other.gameObject.transform.parent.GetComponent<PlayerController>().Damage(damage);
             Death();
         }

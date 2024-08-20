@@ -380,7 +380,7 @@ public class PlayerController : MonoBehaviour
 
     public void Damage(float enemyDamage)
     {
-        float damage = enemyDamage * damageReduction;
+        float damage = enemyDamage * (1 - damageReduction);
 
         if (damage < 0)
         {

@@ -77,7 +77,6 @@ public class UpgradeMenu : MonoBehaviour
                 {
                     player.returnTimeModifier = player.maxReturnTimeModifier;
                 }
-                print(transform.GetChild(4));
                 transform.GetChild(4).GetChild(1).gameObject.GetComponent<Slider>().value = (float)player.speed / player.maxSpeed;
                 break;
 
