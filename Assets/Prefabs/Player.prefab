@@ -583,7 +583,7 @@ MonoBehaviour:
   maxSize: 200
   bulletInterval: 1.5
   range: 2
-  maxRange: 100
+  maxRange: 20
   bulletDamage: 1
   maxDamage: 10
   bulletKnockback: 1
@@ -596,6 +596,7 @@ MonoBehaviour:
   gooBar: {fileID: 0}
   sizeBar: {fileID: 0}
   upgradePanel: {fileID: 0}
+  shadowPanel: {fileID: 0}
   sounds:
   - name: Damage
     clip: {fileID: 8300000, guid: a33529765328784428339155d38923d1, type: 3}
@@ -604,6 +605,7 @@ MonoBehaviour:
   - name: Shoot
     clip: {fileID: 8300000, guid: 846ff616b52bef347bdd5c044bdfd73c, type: 3}
   audioSource: {fileID: 443200854518350831}
+  inTutorial: 0
 --- !u!82 &443200854518350831
 AudioSource:
   m_ObjectHideFlags: 0
