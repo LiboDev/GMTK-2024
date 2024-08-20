@@ -55,6 +55,11 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    public UnityEvent<GameObject> GetWaveOverEvent()
+    {
+        return waveOver;
+    }
+
     private IEnumerator Wave()
     {
         while (true)

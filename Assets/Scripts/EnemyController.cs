@@ -165,7 +165,8 @@ public class EnemyController : MonoBehaviour
         if(size <=0)
         {
             size = 0;
-            Instantiate(slimeBall, transform.position, Quaternion.identity);
+            var tempBall = Instantiate(slimeBall, transform.position, Quaternion.identity);
+            tempBall.GetComponent<Collectible>().Initialize(transform.GetComponentInParent<EnemySpawner>().GetWaveOverEvent());
             Death();
         }
         else
@@ -175,7 +176,8 @@ public class EnemyController : MonoBehaviour
 
             for (int i = 0; i < Random.Range(1, damage); i++)
             {
-                Instantiate(slimeBall, transform.position, Quaternion.identity);
+                var tempBall = Instantiate(slimeBall, transform.position, Quaternion.identity);
+                tempBall.GetComponent<Collectible>().Initialize(transform.GetComponentInParent<EnemySpawner>().GetWaveOverEvent());
             }
 
             if(type != 2)
