@@ -79,14 +79,14 @@ public class EnemySpawner : MonoBehaviour
                 {
                     enemyController.SetSize(1);
                     enemyController.SetSpeed(Mathf.Max(wave,5f));
-                    enemyController.SetBulletDamage(wave / 2);
+                    enemyController.SetBulletDamage((float) wave / 2);
                 }
                 else if(rand == 2)
                 {
                     enemyController.SetSize(5);
                     enemyController.SetSpeed(5);
                     enemyController.SetBulletsPerSecond(1);
-                    enemyController.SetBulletDamage(wave/4);
+                    enemyController.SetBulletDamage((float) wave/4);
                 }
 
                 yield return new WaitForSeconds(0.1f);
