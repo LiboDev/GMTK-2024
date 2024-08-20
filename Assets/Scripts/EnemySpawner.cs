@@ -95,6 +95,12 @@ public class EnemySpawner : MonoBehaviour
                 }
 
                 yield return new WaitForSeconds(0.1f);
+
+                if (i % 5 == 0)
+                {
+                    Debug.Log("wait");
+                    yield return new WaitForSeconds(3f);
+                }
             }
 
             yield return new WaitUntil(() => transform.childCount <= 0);
