@@ -348,7 +348,11 @@ public class PlayerController : MonoBehaviour
                     headTransform.rotation = Quaternion.LookRotation(Vector3.forward, movementVector);
                     if (!((Mathf.Abs(body.transform.localScale.x) * Mathf.Abs(body.transform.localScale.y)) >= playerSize) || Mathf.Abs(headTransform.position.x - startPos.x) > Mathf.Abs(headTransform.position.x - startPos.x + movementVector.x) || Mathf.Abs(headTransform.position.y - startPos.y) > Mathf.Abs(headTransform.position.y - startPos.y + movementVector.y))
                     {
-                        headTransform.position += new Vector3(movementVector.x, movementVector.y, 0) * Time.deltaTime * speed;
+                        Vector3 posChange = movementVector * Time.deltaTime * speed;
+                        if (!((headTransform.position.y + posChange.y > 65) || (headTransform.position.y + posChange.y < -79.5) || (headTransform.position.x + posChange.x > 115.5) || (headTransform.position.x + posChange.x < -213.5)))
+                        {
+                            headTransform.position += posChange;
+                        }
                     }
 
                     yield return null;
